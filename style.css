@@ -1,0 +1,45 @@
+body {
+  background-color: #F6F1EE;
+}
+
+.contact, header, .col, h3 {
+  text-align: center;
+}
+
+img {
+  border-radius: 50%;
+}
+
+.certificate {
+  height: 20px;
+  width: 20px;
+}
+
+.family, .game, .major, .rubik {
+  height: 200px;
+  width: 300px; 
+}
+
+header {
+  margin-top: -25px;
+  margin-left: -10px;
+  margin-right: -10px;
+  background-color: lightblue;
+  font-family: Brush Script MT;
+  font-size: 25px;
+  color: rosybrown;
+}
+
+.nolines {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+h2, h3, h4 {
+font-family: Brush Script MT;
+font-size: 30px;
+}
+
+#moveleft {
+  margin-left: -30px;
+}
