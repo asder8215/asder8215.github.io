@@ -2,7 +2,7 @@
 var loop;
 
 function changeImage(){
-  var imageArray = ["https://tse1.mm.bing.net/th?id=OIP.zIxBq-ME4fezAyO8DNbT5wHaDX&pid=Api&P=0&w=393&h=179", "minecraft.jpeg", "ssbu.png"]
+  var imageArray = ["https://tse1.mm.bing.net/th?id=OIP.zIxBq-ME4fezAyO8DNbT5wHaDX&pid=Api&P=0&w=393&h=179", "pictures/minecraft.jpeg", "pictures/ssbu.png"]
   var transition = document.getElementById("transition");
 
   var i = 0;
@@ -25,7 +25,7 @@ transition.addEventListener("mouseleave", onMouseOut)
 
 
 function changeImage1(){
-  var imageArray = ["familypic.JPG", "me.png"]
+  var imageArray = ["pictures/familypic.JPG", "pictures/me.png"]
   var transition = document.getElementById("transition1");
 
   var i = 0;
@@ -72,7 +72,7 @@ transition2.addEventListener("mouseleave", onMouseOut)
 // transition3.addEventListener("mouseleave", changeImage3)
 
 function changeImage3(){
-  var imageArray = ["https://tse4.mm.bing.net/th?id=OIP._VssQ_l3NXk7O_nv_rNu9gHaDV&pid=Api&P=0&w=354&h=160","https://tse4.mm.bing.net/th?id=OIP.xeYr2OL8VjZO6wSD_LG0XQHaHa&pid=Api&P=0&w=300&h=300","time.png"]
+  var imageArray = ["https://tse4.mm.bing.net/th?id=OIP._VssQ_l3NXk7O_nv_rNu9gHaDV&pid=Api&P=0&w=354&h=160","https://tse4.mm.bing.net/th?id=OIP.xeYr2OL8VjZO6wSD_LG0XQHaHa&pid=Api&P=0&w=300&h=300","pictures/time.png"]
   var transition = document.getElementById("transition3");
 
   var i = 0;
