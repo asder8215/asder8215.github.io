@@ -15,10 +15,16 @@ img {
   width: 20px;
 }
 
-.family, .game, .major, .rubik {
+.family, .game, .major, .rubik{
   height: 200px;
   width: 300px; 
 }
+
+.me {
+  height: 300px;
+  width: 300px; 
+}
+
 
 header {
   margin-top: -25px;
