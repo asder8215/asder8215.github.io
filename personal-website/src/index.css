@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri&family=Satisfy&display=swap');
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.Navbar{
+  display: flex;
+  justify-content: space-around;
+  height: 120px;
+  clear: both;
+  background-color: black;
+}
+
+.satisfy{
+  font-family: 'Satisfy', cursive;
+}
+
+.messiri{
+  font-family: 'El Messiri', sans-serif;
+}
+
+.Mahdi, .Intro, .Proj\/Exp, .Resume {
+  color: white;
+  margin-top: 35px;
+  font-size: 40px;
+}
+
+.Resume {
+  background-color: blue;
+  height: 60px;
+  width: 150px;
+  text-align: center;
+  border-radius: 15%;
+}
