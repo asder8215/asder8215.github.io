@@ -1,15 +1,11 @@
 import React, { Component } from 'react'
 import  {Fade} from 'react-slideshow-image'
 import 'react-slideshow-image/dist/styles.css'
-import {
-    Flex,
-    Box,
-} from '@chakra-ui/react'
 
 const fadeImages = [
     {
     url: 'images/back_pic.jpg',
-    caption: 'First Slide'
+    // caption: 'First Slide'
     },
     // {
     // url: 'images/college_friends.jpg',
@@ -17,7 +13,7 @@ const fadeImages = [
     // },
     {
     url: 'images/pyramix.jpg',
-    caption: 'Third Slide'
+    // caption: 'Third Slide'
     },
   ];
   
@@ -56,16 +52,18 @@ class Content extends Component {
                             even Fintech. In my downtime, I like to play badminton or ping pong, watch anime, 
                             and 3-D combination puzzles.
                             <br />
+                            <br />
                             Feel free to check out other parts of this website!
+                            <br />
                             <br />
                             You can also look at these platforms to reach out or 
                             learn more about me:
                         </p>
-                        {/* <Box className='platforms'>
-                            <img className='github' src='/github-logo.png' />
-                            <img className='linkedin' src='/linkedin-logo.png'/>
-                            <img className='gmail' src='/github-logo.png' />
-                        </Box> */}
+                        <div className='platforms'>
+                            <img className='github logo' src='images/github-logo.png' />
+                            <img className='linkedin logo' src='images/linkedin-logo.png'/>
+                            <img className='gmail logo' src='images/gmail-logo.png' />
+                        </div>
                     </div>
             </section>
         )
