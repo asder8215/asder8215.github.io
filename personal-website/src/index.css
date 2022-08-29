@@ -20,6 +20,48 @@ body {
   background-color: black;
 }
 
+.about-me {
+  display: flex;
+  justify-content: space-around;
+  /* align-items: center; */
+}
+
+.fadingImgs, .each-fade {
+  /* height: auto; 
+  width: auto;  */
+  /* max-width: 600px; 
+  max-height: 600px; */
+  /* height: 300px;
+  width: 300px; */
+  height: auto;
+  max-width: 600px;
+}
+
+
+.slide-container {
+  /* max-width: 300px;
+  max-height: 300px; */
+  /* margin-left: 15px; */
+  max-width: 600px;
+  height: auto;
+  /* margin-left: 15px; */
+}
+
+.header {
+  text-align: center;
+  font-size: 60px;
+}
+
+.introduction {
+  font-size:  40px;
+}
+
+.intro-text {
+  /* margin-left: 30px; */
+  max-width: 65%;
+  max-height: 60%;
+}
+
 .satisfy{
   font-family: 'Satisfy', cursive;
 }
@@ -37,7 +79,8 @@ body {
 .Resume {
   background-color: blue;
   height: 60px;
-  width: 150px;
+  width: 180px;
+  /* padding: 20px; */
   text-align: center;
   border-radius: 15%;
 }
