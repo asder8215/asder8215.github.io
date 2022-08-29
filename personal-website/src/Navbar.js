@@ -13,9 +13,9 @@ class Navbar extends Component {
                 <div className='Proj/Exp messiri'>
                     Projects/Experiences
                 </div>
-                <div className='Resume messiri'>
+                <button className='Resume messiri'>
                     Resume
-                </div>
+                </button>
             </div>
         )
     }
