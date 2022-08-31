@@ -40,11 +40,13 @@ body {
 
 .header {
   text-align: center;
-  font-size: 60px;
+  /* font-size: 60px; */
+  font-size: 4vh;
 }
 
 .introduction {
-  font-size:  40px;
+  /* font-size:  40px; */
+  font-size: 3.2vh;
 }
 
 .intro-text {
