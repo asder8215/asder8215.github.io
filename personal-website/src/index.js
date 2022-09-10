@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Content from './Content';
+import Footer from './Footer';
 import './index.css';
 import Navbar from './Navbar';
 
@@ -15,3 +16,4 @@ import Navbar from './Navbar';
 // }
 ReactDOM.render(<Navbar />, document.getElementById('root'))
 ReactDOM.render(<Content />, document.getElementById('about'))
+ReactDOM.render(<Footer />, document.getElementById('footer'))

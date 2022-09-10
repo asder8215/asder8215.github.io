@@ -10,6 +10,7 @@ body {
   margin: 0;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  background-color: black;
 }
 
 .Navbar{
@@ -24,6 +25,7 @@ body {
   display: flex;
   justify-content: space-evenly;
   flex-direction: row;
+  background-color: white;
 }
 
 .fadingImgs, .each-fade, .image-container {
@@ -40,11 +42,13 @@ body {
 
 .header {
   text-align: center;
-  font-size: 60px;
+  /* font-size: 60px; */
+  font-size: 4vh;
 }
 
 .introduction {
-  font-size:  40px;
+  /* font-size:  40px; */
+  font-size: 3.2vh;
 }
 
 .intro-text {
@@ -57,6 +61,11 @@ body {
   justify-content: space-around;
   width: 33%;
   margin-left: 30%;
+}
+
+.footer {
+  text-align: center;
+  color: white;
 }
 
 .logo {
