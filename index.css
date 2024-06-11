@@ -16,42 +16,21 @@
     height:95vh;
 }
 
+/* Terminal Section Styling*/
 .terminal {
     --color: black;
     --background: white;
     --link-color: blue;
     --animation: terminal-underline;
     --line-thickness: 3;
-    --font:inconsolata;
+    --font:"inconsolata";
     height:100%;
 }
 
 .terminalWrapper {
     max-height: 98vh;
     overflow-y:auto;
-    flex: 40%;
-}
-
-.bioWrapper {
-    flex: 60%;
-    padding-left: 2em;
-}
-
-img {
-    float: left;
-    margin: 10px;
-    margin-left:-2px;
-}
-
-p {
-    text-align: justify;
-    font-size: 2em;
-}
-
-.headshotImg{
-    border-radius: 1em;
-    float: right;
-    margin-left: 2.5em;
+    flex: 40vw;
 }
 
 @media screen and (min-width: 1200px) {
@@ -60,24 +39,110 @@ p {
     }
 }
 
-/* If the screen size is 601px wide or more, set the font-size of <div> to 40px */
+
+/* Bio Section Styling*/
+.bioWrapper {
+    flex: 60vw;
+    padding-left: 2em;
+}
+
+
+.poppinsFont {
+    font-family: "Poppins";
+    font-weight: 500;
+}
+
+.sourceCodeProFont {
+    font-family: "Source Code Pro";
+    font-weight: 400;
+}
+
+.promptFont {
+    font-family: "Prompt";
+    font-weight: 300;
+}
+
+.header{
+    margin: 0;
+    padding: 0;
+}
+
+.nameHeader {
+    font-size: 5vh;
+}
+
+.positionHeader {
+    font-size: 2vh;
+}
+
+.headshotImg{
+    border-radius: 1em;
+    float: right;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    margin-right: 1vw;
+    margin-left: 1vw;
+    width:auto;
+    height:20vh;
+}
+
+
+.locationHeaderRow {
+    display: flex;
+    gap: 0.3vw;
+    margin-top: 0.5vh;
+}
+
+.locationHeader {
+    font-size: 1.5vh;
+}
+
+
+#locationIcon {
+    font-size: 1.5vh;
+    margin-top:0.2vh;
+}
+
+.socialRow {
+    display: flex;
+    gap: 2vw;
+    margin-top: 1vh;
+}
+
+.socials {
+    font-size: 3vh;
+}
+
+.socialLinks {
+    color:inherit;
+}
+
+.aboutHeader {
+    font-size: 3vh;
+}
+
+.aboutDescription {
+    font-size: 2vh;
+}
+
+/* If the screen size is 601px wide or more, set the font-size of <div> to 40px
 @media screen and (min-width: 601px) {
     .headshotImg {
-        width:20%;
-        height:auto;
+        width:auto;
+        height:20vh;
     }
-    .aboutMe {
+    /* .aboutMe {
       font-size: 40px;
-    }
-}
+    } */
+/* } */
   
 /* If the screen size is 600px wide or less, set the font-size of <div> to 20px */
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
     .headshotImg {
-        width:20%;
-        height:auto;
-    }
-    .aboutMe {
+        width:auto;
+        height:20vh;
+    } */
+    /* .aboutMe {
       font-size: 20px;
-    }
-}
+    } */
+/* } */
