@@ -1,30 +1,83 @@
 <!DOCTYPE html>
 <html>
     <head>
+
+        <!-- Meta stuff -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- jQuery imports -->
         <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery.terminal/js/jquery.terminal.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.terminal/css/jquery.terminal.min.css"/>
-        <script defer src="index.js"></script>
-        <link rel="stylesheet" href="index.css"/>
+
+        <!-- Google Font imports -->
+        
+        <!-- Inconsolata font -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+        
+        <!-- Poppins font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+        <!-- Source Code Pro font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+
+        <!-- Prompt font-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+        <!-- Bootstrap icon imports -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+        <!-- importing own JS and CSS -->
+        <script defer src="index.js"></script>
+        <link rel="stylesheet" href="index.css"/>
+        
     </head>
     <body class="row">
-        <!-- <div class="row"> -->
             <div class="col terminalWrapper">
                 <div class="terminalSection">
                 </div>
             </div>
             <div class="col bioWrapper">
                 <img class="headshotImg" src="images/Headshot.jpg" alt="Mahdi's Headshot Photo">
-                <p class="aboutMe">
-                    Hello! My name is Mahdi Ali-Raihan. I'm currently a senior at Columbia University studying Computer Science. My primary interest lies in low level systems programming, AI, mobile app development, and fintech.
+                <h1 class="header nameHeader poppinsFont"> Mahdi Ali-Raihan </h1>
+                <p class="header positionHeader sourceCodeProFont"> Senior @ Columbia studying CS</p>
+
+                <div class="locationHeaderRow">
+                    <i id="locationIcon" class="bi bi-geo-alt locationIcon"></i>
+                    <p class="header locationHeader promptFont"></i> New York, NY</p>
+                </div>
+
+                <br>
+
+                <div class="socialRow socialLinks">
+                    <a class="socialLinks" target="_blank" href="mailto: mma2268@columbia.edu"><i class="bi bi-envelope socials"></i></a>
+                    <a class="socialLinks" target="_blank" href="https://github.com/asder8215"><i class="bi bi-github socials"></i></a>
+                    <a class="socialLinks" target="_blank" href="https://www.linkedin.com/in/mahdi-ali-raihan/"><i class="bi bi-linkedin socials"></i></a>
+                </div>
+                
+                <br>
+                <br>
+
+                <h3 class="header aboutHeader poppinsFont"> About Me </h3>
+                <p class="header aboutDescription sourceCodeProFont">
+                    Hello! My name is Mahdi Ali-Raihan. I'm currently a senior at Columbia University studying Computer Science. My primary interest lies in low level systems programming, AI, mobile app development, and fintech. I'm open to learning about other fields in CS though!
                     <br>
                     <br>
-                    From time to time, I'll update this website and you can look through my experiences, projects, hobbies, and what I'm up to currently in the terminal. 
+                    In my free time, I like to read books, watch shows/animes, play Ping Pong/Badminton, play some games on my PC/PS5/Nintendo Switch, or work on some coding projects. I'm also currently learning how to play the ukulele.
+                    <br>
+                    <br>
+                    From time to time, I'll update this website and you can look through my education,experiences, projects, hobbies, and what I'm up to currently in the terminal. Currently, the commands supported by the terminal are: 
                 </p>
+
             </div>
-        <!-- </div> -->
     </body>
 </html>
