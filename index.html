@@ -9,6 +9,7 @@
         <!-- jQuery imports -->
         <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery.terminal/js/jquery.terminal.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery.terminal/js/unix_formatting.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.terminal/css/jquery.terminal.min.css"/>
 
         <!-- Google Font imports -->
@@ -41,43 +42,43 @@
         <link rel="stylesheet" href="index.css"/>
         
     </head>
-    <body class="row">
-            <div class="col terminalWrapper">
-                <div class="terminalSection">
-                </div>
-            </div>
-            <div class="col bioWrapper">
-                <img class="headshotImg" src="images/Headshot.jpg" alt="Mahdi's Headshot Photo">
+    <body>
+            <div class="centerHeader">
                 <h1 class="header nameHeader poppinsFont"> Mahdi Ali-Raihan </h1>
                 <p class="header positionHeader sourceCodeProFont"> Senior @ Columbia studying CS</p>
 
                 <div class="locationHeaderRow">
-                    <i id="locationIcon" class="bi bi-geo-alt locationIcon"></i>
-                    <p class="header locationHeader promptFont"></i> New York, NY</p>
+                    <i id="locationIcon" class="bi bi-geo-alt locationIcon"></i> 
+                    <span class="promptFont"> New York, NY </span>
                 </div>
-
-                <br>
-
-                <div class="socialRow socialLinks">
-                    <a class="socialLinks" target="_blank" href="mailto: mma2268@columbia.edu"><i class="bi bi-envelope socials"></i></a>
-                    <a class="socialLinks" target="_blank" href="https://github.com/asder8215"><i class="bi bi-github socials"></i></a>
-                    <a class="socialLinks" target="_blank" href="https://www.linkedin.com/in/mahdi-ali-raihan/"><i class="bi bi-linkedin socials"></i></a>
+                <div class="socialRow">
+                    <a class="socialLinks emailLink" target="_blank" href="mailto: mma2268@columbia.edu"><i class="bi bi-envelope socials"></i></a>
+                    <a class="socialLinks githubLink" target="_blank" href="https://github.com/asder8215"><i class="bi bi-github socials"></i></a>
+                    <a class="socialLinks linkedinLink" target="_blank" href="https://www.linkedin.com/in/mahdi-ali-raihan/"><i class="bi bi-linkedin socials"></i></a>
                 </div>
-                
-                <br>
-                <br>
+            </div>
 
-                <h3 class="header aboutHeader poppinsFont"> About Me </h3>
-                <p class="header aboutDescription sourceCodeProFont">
-                    Hello! My name is Mahdi Ali-Raihan. I'm currently a senior at Columbia University studying Computer Science. My primary interest lies in low level systems programming, AI, mobile app development, and fintech. I'm open to learning about other fields in CS though!
+            <div class="row">
+                <div class="col bioWrapper">
                     <br>
+                    <img class="headshotImg" src="images/Headshot.jpg" alt="Mahdi's Headshot Photo">
                     <br>
-                    In my free time, I like to read books, watch shows/animes, play Ping Pong/Badminton, play some games on my PC/PS5/Nintendo Switch, or work on some coding projects. I'm also currently learning how to play the ukulele.
-                    <br>
-                    <br>
-                    From time to time, I'll update this website and you can look through my education,experiences, projects, hobbies, and what I'm up to currently in the terminal. Currently, the commands supported by the terminal are: 
-                </p>
+                    <h3 class="header aboutHeader poppinsFont"> About Me </h3>
+                    <p class="header aboutDescription sourceCodeProFont">
+                        Hello! My name is Mahdi Ali-Raihan. I'm currently a senior at Columbia University studying Computer Science. My primary interest lies in low level systems programming, AI, mobile app development, and fintech. I'm open to learning about other fields in CS though!
+                        <br>
+                        <br>
+                        In my free time, I like to read books, watch shows/animes, play Ping Pong/Badminton, play some games on my PC/PS5/Nintendo Switch, or work on some coding projects. I'm also currently learning how to play the ukulele.
+                        <br>
+                        <br>
+                        From time to time, I'll update this website and you can look through my education,experiences, projects, hobbies, and what I'm up to currently in the terminal. Currently, the commands supported by the terminal are: 
+                    </p>
 
+                </div>
+                <div class="col terminalWrapper">
+                    <div class="terminalSection">
+                    </div>
+                </div>
             </div>
     </body>
 </html>
