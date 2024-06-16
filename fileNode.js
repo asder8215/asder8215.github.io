@@ -57,6 +57,8 @@ class FileNode {
             children[i].setParent(this);
         }
         children.sort(function(a, b){
+            a = a.toLowerCase();
+            b = b.toLowerCase();
             if(a.getFileName() > b.getFileName()){
                 return 1;
             }
@@ -240,6 +242,8 @@ class FileNode {
         this.#children.push(child);
         child.setParent(this);
         this.#children.sort(function(a, b){
+            a = a.toLowerCase();
+            b = b.toLowerCase();
             if(a.getFileName() > b.getFileName()){
                 return 1;
             }
