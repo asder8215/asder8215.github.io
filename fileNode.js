@@ -39,46 +39,28 @@ class FileNode {
         }
         return children;
     };
-
-    // scrapped code b/c I realized JS doesn't do method overloading like this ;-;
-    // constructor(fileName, type) {
-    //     this.#fileName = typeof fileName === "string" ? fileName : null;
-    //     this.#type = typeof type === "string" ? type : null;
-    //     this.#metadata = null;
-    //     this.#parent = null;
-    //     this.#children = [];
-    // }
     
     // constructor to create a FileNode with file name, type, metadata, parent, and FileNode children, and root
-    constructor(fileName, type, metadata = null, parent = null, children = [], isRoot = false) {
+    constructor(fileName, type, metadata = null, parent = null, children = []) {
         this.#fileName = typeof fileName === "string" ? fileName : null;
         this.#type = typeof type === "string" ? type : null;
         this.#metadata = typeof metadata === "string" ? metadata : null;
         this.#parent = (parent instanceof FileNode) ? parent : null;
         this.#children =  Array.isArray(children) ? this.#validFileNodeList(children) : [];
-        if (isRoot){
-            assignRoot();
-        }
+        assignRoot();
     }
     
     // Assigning root node for the file system
     static assignRoot(){
-        if (this.getParent() != null){
-            console.log("This FileNode cannot be assigned root.");
-            return;
+        if (this.#root == null){
+            this.#root = this;
+            console.log("The current root node is the FileNode with the name " + this.getFileName() + ".");
         }
-        else if (this.#root != null){
-            console.log("Root has already been assigned.");
-            return;
-        }
-        this.#root = this;
+        return;
     }
 
     // Retrieves root of the file system
     static getRoot(){
-        if (this.#root == null){
-            console.log("Root has not been assigned yet.");
-        }
         return this.#root;
     }
 
