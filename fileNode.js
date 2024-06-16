@@ -14,6 +14,7 @@ class FileNode {
     // private method for checking if the children FileNode list is valid
     #validFileNodeList = function(children) {
         // error check children first
+        checkedFileNames = new Set();
         for(i = 0; i < children.length; i++){
             if (!(children[i] instanceof FileNode)){
                 console.log("Invalid entry in children list.");
@@ -32,11 +33,27 @@ class FileNode {
                 console.log("Error comes from the node named " + this.#fileName + ".");
                 return [];
             }
+            else if(children[i].getFileName() in checkedFileNames){
+                console.log("Cannot have children with the same file names");
+                return [];
+            }
+            else{
+                checkedFileNames.add(children[i].getFileName());
+            }
         }
         // then children's parent can be assigned.
         for(i = 0; i < children.length; i++){
             children[i].setParent(this);
         }
+        children.sort(function(a, b){
+            if(a.getFileName() > b.getFileName()){
+                return 1;
+            }
+            if(a.getFileName() < b.getFileName()){
+                return -1;
+            }
+            return 0;
+        });
         return children;
     };
     
@@ -153,12 +170,13 @@ class FileNode {
     // Connects a child FileNode to the current FileNode
     addChild(child){
 
-        // error checking for child: it cannot be null, a diff type than FileNode, or itself
+        // error checking for child: it cannot be null, a diff type than FileNode, or itself,
+        // a parented child, a root node, or has the same file name in the same children list
         if (child === null){
             console.log("A null child cannot be added to the list.")
             return;
         }
-        else if (!(child instanceof FileNode)) {
+        else if (!(child instanceof FileNode)){
             console.log("Child is not of type FileNode.");
             return;
         }
@@ -174,7 +192,26 @@ class FileNode {
             console.log("Child has an associated parent already.");
             return;
         }
+        else{
+            checkedFileNames = new Set();
+            for(i = 0; i < children.length; i++){
+                if (children[i].getFileName() in checkedFileNames){
+                    console.log("Cannot add a child with an already used file name in the children list.");
+                    return;
+                }
+                checkedFileNames.add(children[i].getFileName());
+            }
+        }
         this.#children.append(child);
         child.setParent(this);
+        this.#children.sort(function(a, b){
+            if(a.getFileName() > b.getFileName()){
+                return 1;
+            }
+            if(a.getFileName() < b.getFileName()){
+                return -1;
+            }
+            return 0;
+        });
     }
 }

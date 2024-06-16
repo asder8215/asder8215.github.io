@@ -1,4 +1,6 @@
 let currPath = '~';
+// const rootFileNode = FileNode(currPath, 'dir');
+// const projNode = FileNode("projects", 'dir')
 
 $('.terminalSection').terminal({
     cat: function(width = 200, height = 300) {
