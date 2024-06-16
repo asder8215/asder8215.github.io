@@ -10,14 +10,32 @@ class FileNode {
     #metadata; // type: string; contains information about the node
     #parent; // type: FileNode; parent of this current FileNode
     #children; // type: [FileNode]; all connecting FileNodes to this node
-
+    static #root = null; // type: FileNode; shares root to all instances of the FileNode class
     // private method for checking if the children FileNode list is valid
     #validFileNodeList = function(children) {
+        // error check children first
         for(i = 0; i < children.length; i++){
             if (!(children[i] instanceof FileNode)){
                 console.log("Invalid entry in children list.");
                 return [];
             }
+            else if (children[i] == this){
+                console.log("Child in children list cannot contain itself.");
+                return [];
+            }
+            else if (children[i] == this.getRoot()){
+                console.log("Cannot add root as a child to the current FileNode list.");
+                return [];
+            }
+            else if(children[i].getParent() != null){
+                console.log("Cannot add a child that has a parent associated with it.");
+                console.log("Error comes from the node named " + this.#fileName + ".");
+                return [];
+            }
+        }
+        // then children's parent can be assigned.
+        for(i = 0; i < children.length; i++){
+            children[i].setParent(this);
         }
         return children;
     };
@@ -31,15 +49,39 @@ class FileNode {
     //     this.#children = [];
     // }
     
-    // constructor to create a FileNode with file name, type, metadata, parent, and FileNode children
-    constructor(fileName, type, metadata = null, parent = null, children = []) {
+    // constructor to create a FileNode with file name, type, metadata, parent, and FileNode children, and root
+    constructor(fileName, type, metadata = null, parent = null, children = [], isRoot = false) {
         this.#fileName = typeof fileName === "string" ? fileName : null;
         this.#type = typeof type === "string" ? type : null;
         this.#metadata = typeof metadata === "string" ? metadata : null;
         this.#parent = (parent instanceof FileNode) ? parent : null;
         this.#children =  Array.isArray(children) ? this.#validFileNodeList(children) : [];
+        if (isRoot){
+            assignRoot();
+        }
     }
     
+    // Assigning root node for the file system
+    static assignRoot(){
+        if (this.getParent() != null){
+            console.log("This FileNode cannot be assigned root.");
+            return;
+        }
+        else if (this.#root != null){
+            console.log("Root has already been assigned.");
+            return;
+        }
+        this.#root = this;
+    }
+
+    // Retrieves root of the file system
+    static getRoot(){
+        if (this.#root == null){
+            console.log("Root has not been assigned yet.");
+        }
+        return this.#root;
+    }
+
     // Retrieves the file name of the FileNode
     getFileName() {
         // inform if no file name value found
@@ -138,10 +180,19 @@ class FileNode {
             console.log("Child is not of type FileNode.");
             return;
         }
-        else if(child == this){
+        else if (child == this){
             console.log("Child cannot be itself.");
             return;
         }
+        else if (child == this.getRoot()){
+            console.log("Child cannot be the root node.");
+            return;
+        }
+        else if (child.getParent() != null){
+            console.log("Child has an associated parent already.");
+            return;
+        }
         this.#children.append(child);
+        child.setParent(this);
     }
 }
