@@ -179,7 +179,7 @@ $('.terminalSection').terminal({
         }
 
         // on success, print current working directory.
-        let currPath = absolutePath(changeNodeTo);
+        let currPath = absolutePath(options);
         this.echo(currPath);
     }
 }, {
