@@ -18,8 +18,8 @@ class FileNode {
 
     // Constructor for the Directory class
     // @param fileName : name of the file node
-    // @param data : content of the file node
-    // @param parent : parent node of the file node
+    // @param data     : content of the file node
+    // @param parent   : parent node of the file node
     constructor(fileName, data = null, parent = null) {
         this.setFileName(fileName);
         this.setData(data);
@@ -134,8 +134,8 @@ class FileNode {
 class RegFile extends FileNode {
     // Constructor for the Directory class
     // @param fileName : name of the file node
-    // @param data : content of the file node
-    // @param parent : parent node of the file node
+    // @param data     : content of the file node
+    // @param parent   : parent node of the file node
     constructor(fileName, data = null, parent = null){
         super(fileName, data, parent);
     }
@@ -148,7 +148,7 @@ class Directory extends FileNode {
     
     // Private method for checking if the children FileNode list is valid
     // @param children : list of file nodes to the current directory
-    // @return sorted version of children
+    // @return           sorted version of children
     #validFileNodeList = function(children) {
         
         // error check children first
@@ -204,8 +204,8 @@ class Directory extends FileNode {
     
     // Constructor for the Directory class
     // @param fileName : name of the file node
-    // @param data : content of the file node
-    // @param parent : parent node of the file node
+    // @param data     : content of the file node
+    // @param parent   : parent node of the file node
     // @param children : list of file nodes to the current directory
     constructor(fileName, data = null, parent = null, children = []){
         super(fileName, data, parent);
