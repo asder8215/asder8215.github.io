@@ -1,27 +1,159 @@
 // Rough idea of what I want to make my filesystem like for the terminal
-//                                                                -> [TeXiT, Cannons, Name the Game, Spin the Wheel, TechPrep]
-//                                                                -> [Columbia, DeWitt Clinton HS]
-// ~ -> [projects, education, experience, leadership/development] -> [Ceros, Good Shepherd Services]
-//                                                                -> [KKCF, Google Code Next, & Education Fellow]
+//                                                                 <-> [TeXiT, Cannons, Name the Game, Spin the Wheel, TechPrep]
+//                                                                 <-> [Columbia, DeWitt Clinton HS]
+// ~ <-> [projects, education, experience, leadership/development] <-> [Ceros, Good Shepherd Services]
+//                                                                 <-> [KKCF, Google Code Next, & Education Fellow]
 
+// File Node Data Structure that support features that all
+// files/directories share on a File System
 class FileNode {
-    #fileName = null; // type: string; name of the file
-    #type = null;  // type: string; directory or file)
-    #metadata = null; // type: string; contains information about the node
-    #parent = null; // type: FileNode; parent of this current FileNode
-    #children = []; // type: [FileNode]; all connecting FileNodes to this node
-    static #root = null; // type: FileNode; shares root to all instances of the FileNode class
-    // private method for checking if the children FileNode list is valid
+    // type: string; name of the file
+    #fileName = null;
+    // type: string; contains information about the node
+    #data = null;
+    // type: FileNode; parent of this current FileNode
+    #parent = null;
+    // type: FileNode; shares root to all instances of the FileNode class
+    static root = null;
+
+    // Constructor for the Directory class
+    // @param fileName : name of the file node
+    // @param data : content of the file node
+    // @param parent : parent node of the file node
+    constructor(fileName, data = null, parent = null) {
+        this.setFileName(fileName);
+        this.setData(data);
+        let isRoot = false;
+        // first Directory instance will become root
+        // may update this later to support reassigning root
+        if (parent == null && (this instanceof Directory)) {
+            isRoot = this.constructor.assignRoot();
+        }
+        if (!isRoot){
+            console.log("Setting " + fileName + " to " + parent.getFileName());
+            parent.addChild(this);
+        }
+        else {
+            console.log("The current root node is the FileNode with the name " + this.getFileName() + ".");
+        }
+    }
+    
+    // Assigning root node for the file system
+    // @return true/false on whether root was assigned or not or was
+    // already assigned.
+    static assignRoot(){
+        if (this.root == null){
+            this.root = this;
+            return true;
+        }
+        return false;
+    }
+
+    // Retrieves root of the file system
+    // @return the root file node
+    static getRoot(){
+        return this.root;
+    }
+
+    // Retrieves the file name of the FileNode
+    // @return file name of the file node
+    getFileName() {
+        // inform if no file name value found
+        if (this.#fileName === null){
+            console.log("This FileNode contains no file name value.");
+        }
+        return this.#fileName;
+    }
+
+    // Retrieves the data of the FileNode
+    // @return data of the file node
+    getData() {
+        // inform if no data value found
+        if (this.#data === null){
+            console.log("This FileNode contains no data value.");
+        }
+        return this.#data;
+    }
+
+    // Retrieves the parent FileNode of the FileNode
+    // @return parent file node of the file node
+    getParent() {
+        return this.#parent;
+    }
+
+    // Set the file name for the FileNode
+    // @param fileName : the name to assign to the FileNode
+    setFileName(fileName) {
+        // error checking for file name: it cannot be a diff type than string
+        let rootNode = FileNode.getRoot()
+        if (!(typeof fileName === "string")){
+            console.log("Invalid file name value.");
+            return;
+        }
+        else if(fileName === ""){
+            console.log("Cannot name a file as an empty string.");
+            return;
+        }
+        else if(FileNode.getRoot() !== null){
+            if(fileName === rootNode.getFileName()){
+                console.log("Cannot have a file with the same name as root");
+                return;
+            }
+        }
+        this.#fileName = fileName;
+    }
+
+    // Set the data for the FileNode
+    // @param data : the data to assign to the FileNode
+    setData(data) {
+        // error checking for data: it cannot be a diff type than string
+        if (!(typeof data === "string")){
+            console.log("Invalid data value.");
+            return;
+        }
+        this.#data = data;
+    }
+
+    // Set the parent FileNode for the current FileNode
+    // @param parent : the parent FileNode to assign to the FileNode
+    setParent(parent) {
+        // error checking for parent: it cannot be a diff type than FileNode or itself
+        if (!(parent instanceof FileNode)) {
+            console.log("Parent is not of type FileNode.");
+            return;
+        }
+        else if(parent == this){
+            console.log("Parent cannot be itself.");
+            return;
+        }
+        this.#parent = parent;
+    }
+};
+
+// Regular File Class built on FileNode
+class RegFile extends FileNode {
+    // Constructor for the Directory class
+    // @param fileName : name of the file node
+    // @param data : content of the file node
+    // @param parent : parent node of the file node
+    constructor(fileName, data = null, parent = null){
+        super(fileName, data, parent);
+    }
+};
+
+// Directory Class for directory exclusive methods
+class Directory extends FileNode {
+    // type: [FileNode]; all connecting FileNodes to this node
+    #children = [];
+    
+    // Private method for checking if the children FileNode list is valid
+    // @param children : list of file nodes to the current directory
+    // @return sorted version of children
     #validFileNodeList = function(children) {
         
         // error check children first
         if (!(Array.isArray(children))){
             console.log("Children is not an array type.");
-            return [];
-        }
-
-        if (this.#type !== "dir"){
-            console.log("Current Node is not a dir type to have children.");
             return [];
         }
 
@@ -41,7 +173,7 @@ class FileNode {
             }
             else if(children[i].getParent() !== null){
                 console.log("Cannot add a child that has a parent associated with it.");
-                console.log("Error comes from the node named " + this.#fileName + ".");
+                console.log("Error comes from the node named " + this.getFileName() + ".");
                 return [];
             }
             else if(children[i].getFileName() in checkedFileNames){
@@ -70,136 +202,24 @@ class FileNode {
         return children;
     };
     
-    // constructor to create a FileNode with file name, type, metadata, parent, and FileNode children, and root
-    constructor(fileName, type, metadata = null, parent = null, children = []) {
-        // this.#fileName = typeof fileName === "string" ? fileName : null;
-        // this.#type = (typeof type === "string" && (type === 'dir' | type === 'file')) ? type : null;
-        // this.#metadata = typeof metadata === "string" ? metadata : null;
-        // this.#parent = (parent instanceof FileNode) ? parent : null;
-        this.setFileName(fileName);
-        this.setType(type);
-        this.setMetaData(metadata)
-        this.#validFileNodeList(children);
-        //this.#children =  (Array.isArray(children) && this.#type == 'dir') ? this.#validFileNodeList(children) : [];
-        let isRoot = false;
-        if (parent == null) {
-            isRoot = this.constructor.assignRoot();
-        }
-        if (!isRoot){
-            console.log("Setting " + fileName + " to " + parent.getFileName());
-            // this.setParent(parent);
-            parent.addChild(this);
-        }
-        else {
-            console.log("The current root node is the FileNode with the name " + this.getFileName() + ".");
-        }
-    }
-    
-    // Assigning root node for the file system
-    static assignRoot(){
-        if (this.#root == null){
-            this.#root = this;
-            return true;
-        }
-        return false;
+    // Constructor for the Directory class
+    // @param fileName : name of the file node
+    // @param data : content of the file node
+    // @param parent : parent node of the file node
+    // @param children : list of file nodes to the current directory
+    constructor(fileName, data = null, parent = null, children = []){
+        super(fileName, data, parent);
+        this.#children = this.#validFileNodeList(children);
     }
 
-    // Retrieves root of the file system
-    static getRoot(){
-        return this.#root;
-    }
-
-    // Retrieves the file name of the FileNode
-    getFileName() {
-        // inform if no file name value found
-        if (this.#fileName === null){
-            console.log("This FileNode contains no file name value.");
-        }
-        return this.#fileName;
-    }
-
-    // Retrieves the type of the FileNode
-    getType() {
-        // inform if no type value found
-        if (this.#type === null){
-            console.log("This FileNode contains no type value.");
-        }
-        return this.#type;
-    }
-
-    // Retrieves the metadata of the FileNode
-    getMetaData() {
-        // inform if no metadata value found
-        if (this.#metadata === null){
-            console.log("This FileNode contains no metadata value.");
-        }
-        return this.#metadata;
-    }
-
-    // Retrieves the parent FileNode of the FileNode
-    getParent() {
-        return this.#parent;
-    }
-    
     // Retrieves the list of descendant File Nodes of the FileNode
+    // @return list of FileNodes for the current Directory
     getChildren() {
         return this.#children;
     }
-
-    // Set the file name for the FileNode
-    setFileName(fileName) {
-        // error checking for file name: it cannot be a diff type than string
-        if (!(typeof fileName === "string")){
-            console.log("Invalid file name value.");
-            return;
-        }
-        this.#fileName = fileName;
-    }
-
-    // Set the type for the FileNode
-    setType(type) {
-        // error checking for type: it cannot be a diff type than string or something else
-        // from 'dir' or 'file'
-        if (!(typeof type === "string")){
-            console.log("Invalid type value.");
-            return;
-        }
-        else if (type !== "dir" && type !== "file"){
-            console.log("Type is not a 'dir' or 'file'.");
-            return;
-        }
-        else if (this.#type !== null){
-            console.log("Cannot re-type a FileNode type.");
-            return;
-        }
-        this.#type = type;
-    }
-
-    // Set the metadata for the FileNode
-    setMetaData(metadata) {
-        // error checking for metadata: it cannot be a diff type than string
-        if (!(typeof metadata === "string")){
-            console.log("Invalid metadata value.");
-            return;
-        }
-        this.#metadata = metadata;
-    }
-
-    // Set the parent FileNode for the current FileNode
-    setParent(parent) {
-        // error checking for parent: it cannot be a diff type than FileNode or itself
-        if (!(parent instanceof FileNode)) {
-            console.log("Parent is not of type FileNode.");
-            return;
-        }
-        else if(parent == this){
-            console.log("Parent cannot be itself.");
-            return;
-        }
-        this.#parent = parent;
-    }
-
+    
     // Connects a child FileNode to the current FileNode
+    // @param child : child of FileNode to be inputted to the Directory
     addChild(child){
 
         // error checking for child: it cannot be null, a diff type than FileNode, or itself,
@@ -224,10 +244,6 @@ class FileNode {
             console.log("Child has an associated parent already.");
             return;
         }
-        else if (this.getType() !== 'dir'){
-            console.log("Child is not of type directory.");
-            return;
-        }
         else{
             var checkedFileNames = new Set();
             var childrenList = this.getChildren();
@@ -239,9 +255,11 @@ class FileNode {
                 checkedFileNames.add(childrenList[i].getFileName());
             }
         }
-        this.#children.push(child);
+        // if falls through here, then child is valid and can be added
+        // plus sorted
+        this.getChildren().push(child);
         child.setParent(this);
-        this.#children.sort(function(a, b){
+        this.getChildren().sort(function(a, b){
             a = a.getFileName().toLowerCase();
             b = b.getFileName().toLowerCase();
             if(a > b){
@@ -253,4 +271,4 @@ class FileNode {
             return 0;
         });
     }
-}
+};
