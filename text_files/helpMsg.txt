@@ -1,0 +1,8 @@
+Currently the commands available for this web terminal are: 
+    - cd [path]  : Changes the current directory to the provided path by user. Only allows one path name to be supplied. 
+                   If no path is supplied, it stays in the current directory. 
+    - help       : Displays this help message for users to refer back to for information about commands currently offered.
+    - ls [path]  : List all directories and files to either the provided path or if no path is provided to the current path.
+    - pwd        : Prints out the current working directory.
+    - stat [path]: Displays the data/content associated with a specific directory or file from path provided by user. If no
+                   path is provided, displays the data associated with the current directory.
