@@ -1,12 +1,16 @@
 // Msg value for commands + data
-const helpMsg = "Currently the commands available for this terminal are: cd [dir], help, ls [dir], pwd, stat [dir]."
-const rootData = "Root Placeholder";
-const projData = "Root Placeholder";
-const expData = "Experience Placeholder";
-const eduData = "Education Placeholder";
-const devData = "Development Placeholder";
-const miscData = "Miscellaneous Placeholder";
-const testData = "Test Placeholder"; // will be commented out when done
+// src: https://stackoverflow.com/questions/71484264/can-you-get-the-content-of-a-github-file-with-javascript
+const helpMsg = (async() => {
+    const res = await axios.get("https://raw.githubusercontent.com/asder8215/asder8215.github.io/main/text_files/helpMsg.txt");
+    return res.data.toString();
+})()
+const rootData = "The root/home directory allows you to navigate through all the paths on this website terminal.";
+const projData = "The project directory contains files pertaining to projects I have done in the past.";
+const expData = "The experiences directory contains files pertaining to the jobs and positions I have worked.";
+const eduData = "The education directory contains files pertaining to the post secondary institutions or education I have received.";
+const devData = "The development directory contains files pertaining to any programs or positions that contributed to my development.";
+const miscData = "The miscellaneous directory contains files or directories regarding other information about me.";
+const testData = "This is a test directory."; // will be commented out when done
 
 // Creating all File Nodes for the file system of terminal
 let currPath = '~';
@@ -14,12 +18,30 @@ const rootFileNode = new Directory(currPath, rootData);
 const projNode = new Directory("projects", projData, rootFileNode);
 const expNode = new Directory("experiences", expData, rootFileNode);
 const eduNode = new Directory("education", eduData, rootFileNode);
-const devNode = new Directory("leadership", devData, rootFileNode);
+const devNode = new Directory("development", devData, rootFileNode);
 const miscNode = new Directory("miscellaneous", miscData, rootFileNode);
 const testNode = new RegFile("test", testData, rootFileNode); // will be commented out when done
 
 // Setting the terminal to the root node initially
 let currNode = rootFileNode;
+
+
+// this is the echo div tag to contain any text content on visible portion of
+// the terminal (so it doesn't bleed to the right of the terminal box)
+// note to self: if a text requires color, then make sure to put styling on that
+// text
+// src: https://stackoverflow.com/questions/24346832/echo-content-on-the-same-line-in-jquery-terminal
+const echoDiv = { raw: true,
+    finalize: function(div) {
+       div
+    //    .css("width", "48vw")
+      .css("display", "flex")
+      .css("white-space", "pre-wrap")
+      .css("word-wrap", "break-all")
+      ;
+    }
+};
+
 
 // Retrieves the whole absolute path of the given node
 // @param currFileNode : the curr file node to expand the full path to
@@ -149,7 +171,7 @@ $('.terminalSection').terminal({
             return;
         }
 
-        this.echo(helpMsg);
+        this.echo(helpMsg, echoDiv);
     },
     // List out all the info of the given dir
     // Blue are directories, white are regular files
@@ -163,10 +185,10 @@ $('.terminalSection').terminal({
         var childrenList = changeNodeTo.getChildren();
         for(let i = 0; i < childrenList.length; i++){
             if (childrenList[i] instanceof Directory){
-                this.echo('[[;blue;]' + childrenList[i].getFileName() + ']');
+                this.echo('<span style="color:blue">' + childrenList[i].getFileName() + '</span>', echoDiv);
             }
             else if (childrenList[i] instanceof RegFile){
-                this.echo(childrenList[i].getFileName());
+                this.echo(childrenList[i].getFileName(), echoDiv);
             }
         }
     },
@@ -190,7 +212,7 @@ $('.terminalSection').terminal({
             return;
         }
 
-        this.echo(changeNodeTo.getData());
+        this.echo(changeNodeTo.getData(), echoDiv);
     },
     // Print current working directory
     // @param <directory> : this is not allowed. this will be error checked.
@@ -201,7 +223,7 @@ $('.terminalSection').terminal({
         }
 
         let currPath = absolutePath(options);
-        this.echo(currPath);
+        this.echo(currPath, echoDiv);
     }
 }, {
     checkArity: false,

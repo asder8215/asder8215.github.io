@@ -97,7 +97,7 @@
 }
 
 .terminalWrapper {
-    max-height: 98vh;
+    /* max-height: 98vh; */
     overflow-y:auto;
     flex: 50vw;
 }
