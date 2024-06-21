@@ -1,26 +1,32 @@
 // Msg value for commands + data
-// src: https://stackoverflow.com/questions/71484264/can-you-get-the-content-of-a-github-file-with-javascript
-const helpMsg = (async() => {
-    const res = await axios.get("https://raw.githubusercontent.com/asder8215/asder8215.github.io/main/text_files/helpMsg.txt");
-    return res.data.toString();
-})()
+const rawGitHubUrl = "https://raw.githubusercontent.com/asder8215/asder8215.github.io/main/text_files/"
+const helpMsg = getDataFromUrl(rawGitHubUrl + "helpMsg.txt");
+
+// Directory data. Hardcoded here because they aren't too long.
 const rootData = "The root/home directory allows you to navigate through all the paths on this website terminal.";
 const projData = "The project directory contains files pertaining to projects I have done in the past.";
 const expData = "The experiences directory contains files pertaining to the jobs and positions I have worked.";
 const eduData = "The education directory contains files pertaining to the post secondary institutions or education I have received.";
-const devData = "The development directory contains files pertaining to any programs or positions that contributed to my development.";
 const miscData = "The miscellaneous directory contains files or directories regarding other information about me.";
-const testData = "This is a test directory."; // will be commented out when done
+
+// Placeholder Data
+const testData = "This is a test data."; // will be commented out when done
+
 
 // Creating all File Nodes for the file system of terminal
 let currPath = '~';
 const rootFileNode = new Directory(currPath, rootData);
-const projNode = new Directory("projects", projData, rootFileNode);
-const expNode = new Directory("experiences", expData, rootFileNode);
-const eduNode = new Directory("education", eduData, rootFileNode);
-const devNode = new Directory("development", devData, rootFileNode);
-const miscNode = new Directory("miscellaneous", miscData, rootFileNode);
-const testNode = new RegFile("test", testData, rootFileNode); // will be commented out when done
+
+rootFileNode.addChild(
+    new Directory("projects", projData), 
+    new Directory("experiences", expData),
+    new Directory("education", eduData),
+    new Directory("miscellaneous", miscData)
+);
+
+rootFileNode.findChildByName("projects").addChild(new RegFile(""))
+
+// const testNode = new RegFile("test", testData, rootFileNode); // will be commented out when done
 
 // Setting the terminal to the root node initially
 let currNode = rootFileNode;
@@ -42,6 +48,16 @@ const echoDiv = { raw: true,
     }
 };
 
+// Retrieves the html content (converted to string) from the given url
+// src: https://stackoverflow.com/questions/71484264/can-you-get-the-content-of-a-github-file-with-javascript
+// @param url : the given url to retrieve content from
+// @return      the content from the url.
+function getDataFromUrl(url){
+    return (async() => {
+        const res = await axios.get(url);
+        return res.data.toString();
+    })();
+}
 
 // Retrieves the whole absolute path of the given node
 // @param currFileNode : the curr file node to expand the full path to
@@ -66,8 +82,6 @@ function absolutePath(currFileNode){
 // @return               resetted value to changeDir, the file node to switch to, 
 //                       bool val for starting at tilda, and whether an error was caused. 
 function checkFileAt(changeDir, currFileNode, isTildaBegin, fullDir, dirCheck, terminal){
-    var childrenList = currFileNode.getChildren();
-
     // "." is just referring to current directory
     if (changeDir === "."){
         return ["", currFileNode, false, false];
@@ -86,24 +100,25 @@ function checkFileAt(changeDir, currFileNode, isTildaBegin, fullDir, dirCheck, t
     // check through the curr file directory list to see if there's a directory named
     // like changeDir value. It has to be a directory.
     else {
-        for(let fileNum = 0; fileNum < childrenList.length; fileNum++){
-            if(childrenList[fileNum].getFileName() === changeDir){
-                // cannot cd to a file.
-                if(dirCheck && !(childrenList[fileNum] instanceof Directory)){
-                    break;
-                }
-                return ["", childrenList[fileNum], false, false];
+        let child = currFileNode.findChildByName(changeDir);
+
+        // in the events that the child is null, no path/directory was found, 
+        // so raise an error.
+        let errorPath = absolutePath(currFileNode);
+        errorPath = errorPath + changeDir + fullDir;
+
+        if(child != null){
+            if(!dirCheck || (dirCheck && (child instanceof Directory))){
+                return ["", child, false, false];
             }
         }
-        
-        // if for loop falls through, no path/directory was found.
-        errorPath = absolutePath(currFileNode);
-        errorPath = errorPath + changeDir + fullDir;
+
+        // falls through if there's an error with child
         if (dirCheck){
-            terminal.echo("[[;red;]" + "The directory " + errorPath + " does not exist." + "]");
+            terminal.echo("<span style='color:red'>" + "The directory " + errorPath + " does not exist." + "</span>", echoDiv);
         }
         else{
-            terminal.echo("[[;red;]" + "The file " + errorPath + " does not exist." + "]");
+            terminal.echo("<span style='color:red'>" + "The file " + errorPath + " does not exist." + "</span>", echoDiv);
         }
         return [changeDir, currFileNode, false, true];
     }
@@ -120,7 +135,7 @@ function parseFile(directory, dirCheck, numArgAllowed, terminal){
 
     // error check on directory first
     if(directory.length > numArgAllowed){
-        terminal.echo("[[;red;]" + "Cannot take more than " + numArgAllowed.toString() + " argument(s)." + "]");
+        terminal.echo('<span style="color:red">' + "Cannot take more than " + numArgAllowed.toString() + " argument(s)." + "</span>", echoDiv);
         return null;
     }
     else if (directory.length == 0){
