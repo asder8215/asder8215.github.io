@@ -16,7 +16,7 @@ class FileNode {
     // type: FileNode; shares root to all instances of the FileNode class
     static root = null;
 
-    // Constructor for the Directory class
+    // Constructor for the File Node class
     // @param fileName : name of the file node
     // @param data     : content of the file node
     // @param parent   : parent node of the file node
@@ -29,9 +29,12 @@ class FileNode {
         if (parent == null && (this instanceof Directory)) {
             isRoot = this.constructor.assignRoot();
         }
-        if (!isRoot){
+        if (!isRoot && parent != null){
             console.log("Setting " + fileName + " to " + parent.getFileName());
             parent.addChild(this);
+        }
+        else if(!isRoot){
+            console.log("Creating a File Node with name " + fileName + " with no parent.");
         }
         else {
             console.log("The current root node is the FileNode with the name " + this.getFileName() + ".");
@@ -218,47 +221,53 @@ class Directory extends FileNode {
         return this.#children;
     }
     
-    // Connects a child FileNode to the current FileNode
-    // @param child : child of FileNode to be inputted to the Directory
-    addChild(child){
-
+    // Connects an arbitrary length of FileNodes to the current FileNode
+    // @param child :  FileNodes to be inputted to the Directory
+    addChild(...children){
+        
         // error checking for child: it cannot be null, a diff type than FileNode, or itself,
         // a parented child, a root node, or has the same file name in the same children list
-        if (child === null){
-            console.log("A null child cannot be added to the list.")
-            return;
-        }
-        else if (!(child instanceof FileNode)){
-            console.log("Child is not of type FileNode.");
-            return;
-        }
-        else if (child == this){
-            console.log("Child cannot be itself.");
-            return;
-        }
-        else if (child == FileNode.getRoot()){
-            console.log("Child cannot be the root node.");
-            return;
-        }
-        else if (child.getParent() !== null){
-            console.log("Child has an associated parent already.");
-            return;
-        }
-        else{
-            var checkedFileNames = new Set();
-            var childrenList = this.getChildren();
-            for(let i = 0; i < childrenList.length; i++){
-                if (childrenList[i].getFileName() in checkedFileNames){
-                    console.log("Cannot add a child with an already used file name in the children list.");
-                    return;
+        for (let child of children){
+            if (child === null){
+                console.log("A null child cannot be added to the list.")
+                return;
+            }
+            else if (!(child instanceof FileNode)){
+                console.log("Child is not of type FileNode.");
+                return;
+            }
+            else if (child == this){
+                console.log("Child cannot be itself.");
+                return;
+            }
+            else if (child == FileNode.getRoot()){
+                console.log("Child cannot be the root node.");
+                return;
+            }
+            else if (child.getParent() !== null){
+                console.log("Child has an associated parent already.");
+                return;
+            }
+            else{
+                var checkedFileNames = new Set();
+                var childrenList = this.getChildren();
+                for(let i = 0; i < childrenList.length; i++){
+                    if (childrenList[i].getFileName() in checkedFileNames){
+                        console.log("Cannot add a child with an already used file name in the children list.");
+                        return;
+                    }
+                    checkedFileNames.add(childrenList[i].getFileName());
                 }
-                checkedFileNames.add(childrenList[i].getFileName());
             }
         }
         // if falls through here, then child is valid and can be added
         // plus sorted
-        this.getChildren().push(child);
-        child.setParent(this);
+        for (let child of children){
+            console.log("Adding " + child.getFileName() + " to " + this.getFileName() + ".");
+            this.getChildren().push(child);
+            child.setParent(this);
+        }
+
         this.getChildren().sort(function(a, b){
             a = a.getFileName().toLowerCase();
             b = b.getFileName().toLowerCase();
@@ -270,5 +279,17 @@ class Directory extends FileNode {
             }
             return 0;
         });
+    }
+
+    // Finds a certain File Node by file name
+    // @param fileName : the File Node to search for with a specific name
+    // @return           the File Node child with the file name on success or null on failure
+    findChildByName(fileName){
+        for (let child of this.getChildren()){
+            if(child.getFileName() === fileName){
+                return child;
+            }
+        }
+        return null;
     }
 };
