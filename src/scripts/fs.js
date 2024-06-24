@@ -220,6 +220,17 @@ class Directory extends FileNode {
     getChildren() {
         return this.#children;
     }
+
+    // Retrieves the list of all file names within the Directory
+    // @return list of file names within Directory
+    getFileNames() {
+        let childrenList = this.getChildren();
+        let currFileNames = []
+        for (let i = 0; i < childrenList.length; i++){
+            currFileNames.push(childrenList[i].getFileName());
+        }
+        return currFileNames;
+    }
     
     // Connects an arbitrary length of FileNodes to the current FileNode
     // @param child :  FileNodes to be inputted to the Directory
