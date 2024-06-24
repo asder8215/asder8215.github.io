@@ -64,15 +64,18 @@ let currNode = rootFileNode;
 // note to self: if a text requires color, then make sure to put styling on that
 // text
 // src: https://stackoverflow.com/questions/24346832/echo-content-on-the-same-line-in-jquery-terminal
-const echoDiv = { raw: true,
+const echoDiv = { 
+    raw: true,
     finalize: function(div) {
        div
     //    .css("width", "48vw")
       .css("display", "flex")
       .css("white-space", "pre-wrap")
       .css("word-wrap", "break-all")
+    //   .css("margin-top", "0.25vh")
+      .css("margin-bottom", "0.25vh");
       ;
-    }
+    }, 
 };
 
 // Retrieves the html content (converted to string) from the given url
@@ -108,7 +111,7 @@ function absolutePath(currFileNode){
 // @param terminal     : the terminal object on the website 
 // @return               resetted value to changeDir, the file node to switch to, 
 //                       bool val for starting at tilda, and whether an error was caused. 
-function checkFileAt(changeDir, currFileNode, isTildaBegin, fullDir, dirCheck, terminal){
+function checkFileAt(changeDir, currFileNode, isTildaBegin, fullDir, dirCheck, terminal, echoError){
     // "." is just referring to current directory
     if (changeDir === "."){
         return ["", currFileNode, false, false];
@@ -128,7 +131,6 @@ function checkFileAt(changeDir, currFileNode, isTildaBegin, fullDir, dirCheck, t
     // like changeDir value. It has to be a directory.
     else {
         let child = currFileNode.findChildByName(changeDir);
-        console.log("The changing directory is " + changeDir);
         // in the events that the child is null, no path/directory was found, 
         // so raise an error.
         let errorPath = absolutePath(currFileNode);
@@ -141,11 +143,13 @@ function checkFileAt(changeDir, currFileNode, isTildaBegin, fullDir, dirCheck, t
         }
 
         // falls through if there's an error with child
-        if (dirCheck){
-            terminal.echo("<span style='color:red'>" + "The directory " + errorPath + " does not exist." + "</span>", echoDiv);
-        }
-        else{
-            terminal.echo("<span style='color:red'>" + "The file " + errorPath + " does not exist." + "</span>", echoDiv);
+        if(echoError){
+            if (dirCheck){
+                terminal.echo("<span style='color:red'>" + "The directory " + errorPath + " does not exist." + "</span>", echoDiv);
+            }
+            else{
+                terminal.echo("<span style='color:red'>" + "The file " + errorPath + " does not exist." + "</span>", echoDiv);
+            }
         }
         return [changeDir, currFileNode, false, true];
     }
@@ -158,7 +162,7 @@ function checkFileAt(changeDir, currFileNode, isTildaBegin, fullDir, dirCheck, t
 // @param numArgAllowed : how many positional arguments is allowed for the calling command
 // @param terminal      : the terminal object on the website
 // @return                the file node to switch to
-function parseFile(directory, dirCheck, numArgAllowed, terminal){
+function parseFile(directory, dirCheck, numArgAllowed, terminal, echoError = true){
 
     // error check on directory first
     if(directory.length > numArgAllowed){
@@ -179,7 +183,7 @@ function parseFile(directory, dirCheck, numArgAllowed, terminal){
     let error = false;
     for(let i = 0; i < directory.length; i++){
         if(directory[i] === "/"){
-            [changeDir, changeNodeTo, isTildaBegin, error] = checkFileAt(changeDir, changeNodeTo, isTildaBegin, directory.substring(i, directory.length), dirCheck, terminal);
+            [changeDir, changeNodeTo, isTildaBegin, error] = checkFileAt(changeDir, changeNodeTo, isTildaBegin, directory.substring(i, directory.length), dirCheck, terminal, echoError);
             if(error){
                 return null;
             }
@@ -190,7 +194,7 @@ function parseFile(directory, dirCheck, numArgAllowed, terminal){
     }
 
     if(changeDir !== ""){
-        [changeDir, changeNodeTo, isTildaBegin, error] = checkFileAt(changeDir, changeNodeTo, isTildaBegin, "", dirCheck, terminal);
+        [changeDir, changeNodeTo, isTildaBegin, error] = checkFileAt(changeDir, changeNodeTo, isTildaBegin, "", dirCheck, terminal, echoError);
     }
     if(error){
         return null;
@@ -199,10 +203,69 @@ function parseFile(directory, dirCheck, numArgAllowed, terminal){
     return changeNodeTo;
 }
 
+// parse the inputted arguments that user puts in on terminal screen
+// @param string   : contains the current string that the user is typing
+// @param callback : callback function to autocompleting echo message
+// @param terminal : terminal instance object 
+function parseCommands(string, callback, terminal){
+    let listOfCmds = terminal.get_command().split(" ");
+    let allowedCmds = ["cd", "help", "ls", "pwd", "stat"]; 
+    let noArgCmd = ["pwd", "help"]    
+    if (listOfCmds.length == 1){
+        callback(allowedCmds)
+    }
+    else if(listOfCmds.length == 2){
+        if(!(noArgCmd.includes(listOfCmds[0])) && allowedCmds.includes(listOfCmds[0])){
+            let lastSlashIndex = listOfCmds[1].split('').reverse().join('').indexOf("/")
+            if(lastSlashIndex == -1){
+                callback(currNode.getFileNames());
+            }
+            else {
+                let pathToCheckForTab = listOfCmds[1].substring(0, listOfCmds[1].length - lastSlashIndex)
+                let checkNodeAt = parseFile([pathToCheckForTab], false, 1, terminal, false);
+                if (checkNodeAt != null){
+                    let fileNamesList = checkNodeAt.getFileNames();
+                    for(let i = 0; i < fileNamesList.length; i++){
+                        fileNamesList[i] = pathToCheckForTab + fileNamesList[i];
+                    }
+                    callback(fileNamesList)
+                }
+            }
+        }
+    }
+    
+}
+
+// formats the echo message for double tab completion
+// @completions    : a list of all available options for user with given input
+// @param terminal : terminal instance object
+function doubleTabCompletion(completions, terminal){
+    terminal.echo('$' + '<span style="color:blue">' + currPath + '/' + '</span>' + '> ' + terminal.get_command(), echoDiv);
+
+    // sort the available options
+    completions = completions.sort(function(a, b){
+        a = a.toLowerCase();
+        b = b.toLowerCase();
+        if(a > b){
+            return 1;
+        }
+        if(a < b){
+            return -1;
+        }
+        return 0;
+    });
+
+    for(let cmd = 0; cmd < completions.length; cmd++){
+        terminal.echo(completions[cmd], echoDiv);
+    }
+}
+
 $('.terminalSection').terminal({
     // Used for testing purposes
     // test: function(){
     //     // this.set_prompt("hello"); set_prompt is how you denote the terminal's current path
+    //     console.log("The command is " + this.get_command());
+    //     return;
     // },
 
     // Displays a message that tells you what command the website supports
@@ -269,7 +332,18 @@ $('.terminalSection').terminal({
     }
 }, {
     checkArity: false,
-    greetings: 'My Terminal\n',
+    greetings: 'Welcome to my terminal. Type "help" to see all commands available with this terminal currently.',
     prompt: '$' + '[[;blue;]' + currPath + '/' + ']' + '> ',
-    completion: true
+    // completion will call on parseCommands to appropriately find
+    // options that user can autocomplete to
+    // more info here: https://github.com/jcubic/jquery.terminal/wiki/Tab-completion
+    completion: function(string, callback){
+        parseCommands(string, callback, this);
+    },
+    // doubleTab will use a different way to echo
+    // autocompleted items on screen than default
+    // more info from api doc: https://terminal.jcubic.pl/api_reference.php#terminal
+    doubleTab: function(string, completions, echo){
+        doubleTabCompletion(completions, this);
+    }
 });
