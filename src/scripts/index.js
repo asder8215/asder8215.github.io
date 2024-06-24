@@ -218,7 +218,10 @@ function parseCommands(string, callback, terminal){
         if(!(noArgCmd.includes(listOfCmds[0])) && allowedCmds.includes(listOfCmds[0])){
             let lastSlashIndex = listOfCmds[1].split('').reverse().join('').indexOf("/")
             if(lastSlashIndex == -1){
-                callback(currNode.getFileNames());
+                fileNamesList = currNode.getFileNames()
+                fileNamesList.push("."); // for current directory
+                fileNamesList.push(".."); // for parent directory
+                callback(fileNamesList);
             }
             else {
                 let pathToCheckForTab = listOfCmds[1].substring(0, listOfCmds[1].length - lastSlashIndex)
@@ -228,6 +231,8 @@ function parseCommands(string, callback, terminal){
                     for(let i = 0; i < fileNamesList.length; i++){
                         fileNamesList[i] = pathToCheckForTab + fileNamesList[i];
                     }
+                    // fileNamesList.push("."); // for current directory
+                    // fileNamesList.push(".."); // for parent directory
                     callback(fileNamesList)
                 }
             }
