@@ -8,7 +8,7 @@ const projData = "The project directory contains files pertaining to projects I 
 const expData = "The experiences directory contains files pertaining to the jobs and positions I have worked.";
 const eduData = "The education directory contains files pertaining to the post secondary institutions or education I have received.";
 const miscData = "The miscellaneous directory contains files or directories regarding other information about me.";
-
+const devData = "The development directory contains files of all programs I've been involved in that contributed to my development in CS."
 // Placeholder Data
 const testData = "This is a test data."; // will be commented out when done
 
@@ -24,7 +24,34 @@ rootFileNode.addChild(
     new Directory("miscellaneous", miscData)
 );
 
-rootFileNode.findChildByName("projects").addChild(new RegFile(""))
+rootFileNode.findChildByName("projects").addChild(
+    new RegFile("TeXiT", null), 
+    new RegFile("Name the Game, Spin the Wheel", null),
+    new RegFile("TechPrep", null),
+    new RegFile("Personal Website", null)
+);
+
+rootFileNode.findChildByName("experiences").addChild(
+    new RegFile("College Bridge Coach @ Good Shepherd Services", null),
+    new RegFile("Education Fellow @ ELiTE", null),
+    new RegFile("Quality Engineer @ Ceros")
+);
+
+rootFileNode.findChildByName("education").addChild(
+    new RegFile("Columbia University", null)
+);
+
+rootFileNode.findChildByName("miscellaneous").addChild(
+    new Directory("development", devData), 
+    new Directory("current", null)
+)
+
+rootFileNode.findChildByName("miscellaneous").findChildByName("development").addChild(
+    new RegFile("Student @ CodePath"),
+    new RegFile("Karim Kharbouch Coding Fellow @ TKH"),
+    new RegFile("Student @ Google Code Next")
+)
+
 
 // const testNode = new RegFile("test", testData, rootFileNode); // will be commented out when done
 
@@ -101,7 +128,7 @@ function checkFileAt(changeDir, currFileNode, isTildaBegin, fullDir, dirCheck, t
     // like changeDir value. It has to be a directory.
     else {
         let child = currFileNode.findChildByName(changeDir);
-
+        console.log("The changing directory is " + changeDir);
         // in the events that the child is null, no path/directory was found, 
         // so raise an error.
         let errorPath = absolutePath(currFileNode);
