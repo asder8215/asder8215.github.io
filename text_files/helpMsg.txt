@@ -9,3 +9,5 @@ Currently the commands available for this web terminal are:
 - pwd        : Prints out the current working directory.
 
 - stat [path]: Displays the data/content associated with a specific directory or file from path provided by user. If no path is provided, displays the data associated with the current directory.
+
+- Note: Any commands here can be autocompleted with two tab button clicks. The same could be done [path] arguments. '.' path refers to current directory. '..' path refers to parent directory. You can also use '~' to immediately go to the home directory. 
