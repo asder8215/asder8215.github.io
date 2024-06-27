@@ -109,8 +109,8 @@ class FileNode {
     // Set the data for the FileNode
     // @param data : the data to assign to the FileNode
     setData(data) {
-        // error checking for data: it cannot be a diff type than string
-        if (!(typeof data === "string")){
+        // error checking for data: it cannot be a diff type than string or Promised info
+        if (!(typeof data === "string" || data instanceof Promise)){
             console.log("Invalid data value.");
             return;
         }

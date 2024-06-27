@@ -1,6 +1,6 @@
 // Msg value for commands + data
 const rawGitHubUrl = "https://raw.githubusercontent.com/asder8215/asder8215.github.io/main/text_files/";
-const helpMsg = getDataFromUrl(rawGitHubUrl + "helpMsg.txt");
+const helpMsg = returnData(rawGitHubUrl + "helpMsg.txt");
 
 // Directory data. Hardcoded here because they aren't too long.
 const rootData = "The root/home directory allows you to navigate through all the paths on this website terminal.";
@@ -9,9 +9,9 @@ const expData = "The experiences directory contains files pertaining to the jobs
 const eduData = "The education directory contains files pertaining to the post secondary institutions or education I have received.";
 const miscData = "The miscellaneous directory contains files or directories regarding other information about me.";
 const devData = "The development directory contains files of all programs I've been involved in that contributed to my development in CS.";
+
 // Placeholder Data
 const testData = "This is a test data."; // will be commented out when done
-
 
 // Creating all File Nodes for the file system of terminal
 let currPath = '~';
@@ -25,20 +25,20 @@ rootFileNode.addChild(
 );
 
 rootFileNode.findChildByName("projects").addChild(
-    new RegFile("TeXiT", getDataFromUrl(rawGitHubUrl + "projects/TeXiT.txt")), 
-    new RegFile("Name the Game, Spin the Wheel", getDataFromUrl(rawGitHubUrl + "projects/NGSW.txt")),
-    new RegFile("TechPrep", getDataFromUrl(rawGitHubUrl + "projects/TechPrep.txt")),
-    new RegFile("Personal Website", getDataFromUrl(rawGitHubUrl + "projects/Personal_Website.txt"))
+    new RegFile("TeXiT", returnData(rawGitHubUrl + "projects/TeXiT.txt")), 
+    new RegFile("Name the Game, Spin the Wheel", returnData(rawGitHubUrl + "projects/NGSW.txt")),
+    new RegFile("TechPrep", returnData(rawGitHubUrl + "projects/TechPrep.txt")),
+    new RegFile("Personal Website", returnData(rawGitHubUrl + "projects/Personal_Website.txt"))
 );
 
 rootFileNode.findChildByName("experiences").addChild(
-    new RegFile("College Bridge Coach @ Good Shepherd Services", getDataFromUrl(rawGitHubUrl + "experiences/GSS.txt")),
-    new RegFile("Education Fellow @ ELiTE", getDataFromUrl(rawGitHubUrl + "experiences/ELiTE.txt")),
-    new RegFile("Quality Engineer @ Ceros", getDataFromUrl(rawGitHubUrl + "experiences/Ceros.txt"))
+    new RegFile("College Bridge Coach @ Good Shepherd Services", returnData(rawGitHubUrl + "experiences/GSS.txt")),
+    new RegFile("Education Fellow @ ELiTE", returnData(rawGitHubUrl + "experiences/ELiTE.txt")),
+    new RegFile("Quality Engineer @ Ceros", returnData(rawGitHubUrl + "experiences/Ceros.txt"))
 );
 
 rootFileNode.findChildByName("education").addChild(
-    new RegFile("Columbia University", getDataFromUrl(rawGitHubUrl + "education/Columbia_University.txt"))
+    new RegFile("Columbia University", returnData(rawGitHubUrl + "education/Columbia_University.txt"))
 );
 
 rootFileNode.findChildByName("miscellaneous").addChild(
@@ -47,9 +47,9 @@ rootFileNode.findChildByName("miscellaneous").addChild(
 );
 
 rootFileNode.findChildByName("miscellaneous").findChildByName("development").addChild(
-    new RegFile("Student @ CodePath", getDataFromUrl(rawGitHubUrl + "miscellaneous/development/CodePath.txt")),
-    new RegFile("Karim Kharbouch Coding Fellow @ TKH", getDataFromUrl(rawGitHubUrl + "miscellaneous/development/KKCF.txt")),
-    new RegFile("Student @ Google Code Next", getDataFromUrl(rawGitHubUrl + "miscellaneous/development/GCN.txt"))
+    new RegFile("Student @ CodePath", returnData(rawGitHubUrl + "miscellaneous/development/CodePath.txt")),
+    new RegFile("Karim Kharbouch Coding Fellow @ TKH", returnData(rawGitHubUrl + "miscellaneous/development/KKCF.txt")),
+    new RegFile("Student @ Google Code Next", returnData(rawGitHubUrl + "miscellaneous/development/GCN.txt"))
 );
 
 
@@ -57,7 +57,6 @@ rootFileNode.findChildByName("miscellaneous").findChildByName("development").add
 
 // Setting the terminal to the root node initially
 let currNode = rootFileNode;
-
 
 // this is the echo div tag to contain any text content on visible portion of
 // the terminal (so it doesn't bleed to the right of the terminal box)
@@ -78,15 +77,25 @@ const echoDiv = {
     }, 
 };
 
-// Retrieves the html content (converted to string) from the given url
-// src: https://stackoverflow.com/questions/71484264/can-you-get-the-content-of-a-github-file-with-javascript
+// Retrieves the html content (converted to text) from the given url as a promise
+// src: https://stackoverflow.com/questions/46719974/promise-is-returning-object-promise
 // @param url : the given url to retrieve content from
-// @return      the content from the url.
-function getDataFromUrl(url){
-    return (async() => {
-        const res = await axios.get(url);
-        return res.data.toString();
-    })();
+// @return      the Promise info of url content
+function getDataFromUrl(url) {
+    return new Promise(resolve => {
+        setTimeout(() =>{
+            const res = fetch(url);
+            resolve(res);
+        }, 100);
+    });
+}
+
+// Returns the Promise info as actual text content
+// @param url: the given url to retrieve content from
+// @return     the text content from the url
+async function returnData(url){
+    const val = await getDataFromUrl(url);
+    return val.text();
 }
 
 // Retrieves the whole absolute path of the given node
@@ -332,7 +341,7 @@ $('.terminalSection').terminal({
         if(changeNodeTo == null){
             return;
         }
-
+        // console.log("The node is " + changeNodeTo.getFileName());
         this.echo(changeNodeTo.getData(), echoDiv);
     },
     // Print current working directory
