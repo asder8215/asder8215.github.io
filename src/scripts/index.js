@@ -1,5 +1,5 @@
 // Msg value for commands + data
-const rawGitHubUrl = "https://raw.githubusercontent.com/asder8215/asder8215.github.io/main/text_files/"
+const rawGitHubUrl = "https://raw.githubusercontent.com/asder8215/asder8215.github.io/main/text_files/";
 const helpMsg = getDataFromUrl(rawGitHubUrl + "helpMsg.txt");
 
 // Directory data. Hardcoded here because they aren't too long.
@@ -8,7 +8,7 @@ const projData = "The project directory contains files pertaining to projects I 
 const expData = "The experiences directory contains files pertaining to the jobs and positions I have worked.";
 const eduData = "The education directory contains files pertaining to the post secondary institutions or education I have received.";
 const miscData = "The miscellaneous directory contains files or directories regarding other information about me.";
-const devData = "The development directory contains files of all programs I've been involved in that contributed to my development in CS."
+const devData = "The development directory contains files of all programs I've been involved in that contributed to my development in CS.";
 // Placeholder Data
 const testData = "This is a test data."; // will be commented out when done
 
@@ -33,24 +33,24 @@ rootFileNode.findChildByName("projects").addChild(
 
 rootFileNode.findChildByName("experiences").addChild(
     new RegFile("College Bridge Coach @ Good Shepherd Services", null),
-    new RegFile("Education Fellow @ ELiTE", null),
+    new RegFile("Education Fellow @ ELiTE", getDataFromUrl(rawGitHubUrl + "experiences/EliTE.txt")),
     new RegFile("Quality Engineer @ Ceros")
 );
 
 rootFileNode.findChildByName("education").addChild(
-    new RegFile("Columbia University", null)
+    new RegFile("Columbia University", getDataFromUrl(rawGitHubUrl + "education/Columbia University.txt"))
 );
 
 rootFileNode.findChildByName("miscellaneous").addChild(
     new Directory("development", devData), 
     new Directory("current", null)
-)
+);
 
 rootFileNode.findChildByName("miscellaneous").findChildByName("development").addChild(
     new RegFile("Student @ CodePath"),
     new RegFile("Karim Kharbouch Coding Fellow @ TKH"),
     new RegFile("Student @ Google Code Next")
-)
+);
 
 
 // const testNode = new RegFile("test", testData, rootFileNode); // will be commented out when done
@@ -73,7 +73,7 @@ const echoDiv = {
       .css("white-space", "pre-wrap")
       .css("word-wrap", "break-all")
     //   .css("margin-top", "0.25vh")
-      .css("margin-bottom", "0.25vh");
+      .css("margin-bottom", "0.25vh")
       ;
     }, 
 };
@@ -208,32 +208,42 @@ function parseFile(directory, dirCheck, numArgAllowed, terminal, echoError = tru
 // @param callback : callback function to autocompleting echo message
 // @param terminal : terminal instance object 
 function parseCommands(string, callback, terminal){
-    let listOfCmds = terminal.get_command().split(" ");
+    let listOfArgs = terminal.get_command().split(" ");
     let allowedCmds = ["cd", "help", "ls", "pwd", "stat"]; 
-    let noArgCmd = ["pwd", "help"]    
-    if (listOfCmds.length == 1){
+    let noArgCmd = ["pwd", "help"];
+    let dirCmds = ["cd", "ls"];
+    if (listOfArgs.length == 1){
         callback(allowedCmds)
     }
-    else if(listOfCmds.length == 2){
-        if(!(noArgCmd.includes(listOfCmds[0])) && allowedCmds.includes(listOfCmds[0])){
-            let lastSlashIndex = listOfCmds[1].split('').reverse().join('').indexOf("/")
+    else if(listOfArgs.length == 2){
+        if(!(noArgCmd.includes(listOfArgs[0])) && allowedCmds.includes(listOfArgs[0])){
+            let lastSlashIndex = listOfArgs[1].split('').reverse().join('').indexOf("/");
             if(lastSlashIndex == -1){
-                fileNamesList = currNode.getFileNames()
+                let fileNamesList = currNode.getFileNames();
                 fileNamesList.push("."); // for current directory
                 fileNamesList.push(".."); // for parent directory
                 callback(fileNamesList);
             }
             else {
-                let pathToCheckForTab = listOfCmds[1].substring(0, listOfCmds[1].length - lastSlashIndex)
+                let pathToCheckForTab = listOfArgs[1].substring(0, listOfArgs[1].length - lastSlashIndex);
                 let checkNodeAt = parseFile([pathToCheckForTab], false, 1, terminal, false);
                 if (checkNodeAt != null){
+                    // fileNamesList & childrenList should be one to one
                     let fileNamesList = checkNodeAt.getFileNames();
-                    for(let i = 0; i < fileNamesList.length; i++){
-                        fileNamesList[i] = pathToCheckForTab + fileNamesList[i];
+                    let childrenList = checkNodeAt.getChildren();
+                    let counter = 0;
+                    for(let i = 0; i < childrenList.length; i++){
+                        if(dirCmds.includes(listOfArgs[0]) && !(childrenList[i] instanceof Directory)){
+                            fileNamesList = fileNamesList.splice(i-counter, 1);
+                            counter++;
+                        }
+                        else{
+                            fileNamesList[i-counter] = pathToCheckForTab + fileNamesList[i-counter];
+                        }
                     }
                     // fileNamesList.push("."); // for current directory
                     // fileNamesList.push(".."); // for parent directory
-                    callback(fileNamesList)
+                    callback(fileNamesList);
                 }
             }
         }
@@ -283,6 +293,7 @@ $('.terminalSection').terminal({
 
         this.echo(helpMsg, echoDiv);
     },
+    // TODO: Add option to display file by chronological order.
     // List out all the info of the given dir
     // Blue are directories, white are regular files
     // @param <directory> : optional argument to check one specific directory path
