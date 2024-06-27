@@ -25,20 +25,20 @@ rootFileNode.addChild(
 );
 
 rootFileNode.findChildByName("projects").addChild(
-    new RegFile("TeXiT", null), 
-    new RegFile("Name the Game, Spin the Wheel", null),
-    new RegFile("TechPrep", null),
-    new RegFile("Personal Website", null)
+    new RegFile("TeXiT", getDataFromUrl(rawGitHubUrl + "projects/TeXiT.txt")), 
+    new RegFile("Name the Game, Spin the Wheel", getDataFromUrl(rawGitHubUrl + "projects/NGSW.txt")),
+    new RegFile("TechPrep", getDataFromUrl(rawGitHubUrl + "projects/TechPrep.txt")),
+    new RegFile("Personal Website", getDataFromUrl(rawGitHubUrl + "projects/Personal_Website.txt"))
 );
 
 rootFileNode.findChildByName("experiences").addChild(
-    new RegFile("College Bridge Coach @ Good Shepherd Services", null),
+    new RegFile("College Bridge Coach @ Good Shepherd Services", getDataFromUrl(rawGitHubUrl + "experiences/GSS.txt")),
     new RegFile("Education Fellow @ ELiTE", getDataFromUrl(rawGitHubUrl + "experiences/EliTE.txt")),
-    new RegFile("Quality Engineer @ Ceros")
+    new RegFile("Quality Engineer @ Ceros", getDataFromUrl(rawGitHubUrl + "experiences/Ceros.txt"))
 );
 
 rootFileNode.findChildByName("education").addChild(
-    new RegFile("Columbia University", getDataFromUrl(rawGitHubUrl + "education/Columbia University.txt"))
+    new RegFile("Columbia University", getDataFromUrl(rawGitHubUrl + "education/Columbia_University.txt"))
 );
 
 rootFileNode.findChildByName("miscellaneous").addChild(
@@ -47,9 +47,9 @@ rootFileNode.findChildByName("miscellaneous").addChild(
 );
 
 rootFileNode.findChildByName("miscellaneous").findChildByName("development").addChild(
-    new RegFile("Student @ CodePath"),
-    new RegFile("Karim Kharbouch Coding Fellow @ TKH"),
-    new RegFile("Student @ Google Code Next")
+    new RegFile("Student @ CodePath", getDataFromUrl(rawGitHubUrl + "miscellaneous/development/CodePath.txt")),
+    new RegFile("Karim Kharbouch Coding Fellow @ TKH", getDataFromUrl(rawGitHubUrl + "miscellaneous/development/KKCF.txt")),
+    new RegFile("Student @ Google Code Next", getDataFromUrl(rawGitHubUrl + "miscellaneous/development/GCN.txt"))
 );
 
 
