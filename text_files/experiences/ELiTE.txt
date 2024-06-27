@@ -1,7 +1,7 @@
-<h3 style="margin: 0; padding: 0;">Education Fellow @ Emerging Leaders in Technology and Engineering (ELiTE)</h3>
-<p style="margin: 0; padding: 0;"><em>October 2021 - Present</em></p>
-<ul style="margin: 0; padding: 0; list-style-position: inside;">
-<li style="margin: 0; padding: 0;">Assisted the lead instructor in teaching introductory Python and complementary topics such as hardware (MicroBit) and game development (Pygame) to high school students, primarily from underrepresented communities.</li>
-<li style="margin: 0; padding: 0;">Conducted weekly office hours to support students and provided feedback on their projects.</li>
-<li style="margin: 0; padding: 0;">Played a key role in fostering an inclusive learning environment and promoting STEM education among diverse student groups.</li>
+<b>Education Fellow @ Emerging Leaders in Technology and Engineering (ELiTE)</b>
+<em>October 2021 - Present </em>
+<ul>
+<li>Assisted the lead instructor in teaching introductory Python and complementary topics such as hardware (MicroBit) and game development (Pygame) to high school students, primarily from underrepresented communities.</li>
+<li>Conducted weekly office hours to support students and provided feedback on their projects.</li>
+<li>Played a key role in fostering an inclusive learning environment and promoting STEM education among diverse student groups.</li>
 </ul>
