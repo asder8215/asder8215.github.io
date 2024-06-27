@@ -33,7 +33,7 @@ rootFileNode.findChildByName("projects").addChild(
 
 rootFileNode.findChildByName("experiences").addChild(
     new RegFile("College Bridge Coach @ Good Shepherd Services", getDataFromUrl(rawGitHubUrl + "experiences/GSS.txt")),
-    new RegFile("Education Fellow @ ELiTE", getDataFromUrl(rawGitHubUrl + "experiences/EliTE.txt")),
+    new RegFile("Education Fellow @ ELiTE", getDataFromUrl(rawGitHubUrl + "experiences/ELiTE.txt")),
     new RegFile("Quality Engineer @ Ceros", getDataFromUrl(rawGitHubUrl + "experiences/Ceros.txt"))
 );
 
