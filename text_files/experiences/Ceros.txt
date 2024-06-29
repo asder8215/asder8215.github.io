@@ -1,0 +1,5 @@
+<b>Quality Engineer @ Ceros</b>
+<em>June 2022 - August 2022</em>
+&bull; Performed manual testing and ticketed issues through Jira and Google Doc that expedited the resolution of bugs and enhanced quality of Ceros’ TextPlus tool
+&bull; Created end-to-end automated testing scripts using Webdriver IO, Cucumber, and TypeScript, which assisted Ceros in efficiently finding bugs in their TextPlus and Previewer tools
+&bull; Actively worked in a cross functional team setting with Software Engineers, UX/UI Designers, and Product Managers through agile meetings

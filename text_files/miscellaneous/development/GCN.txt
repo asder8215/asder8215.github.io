@@ -1,0 +1,5 @@
+<b>Student @ Google Code Next</b>
+<em>September 2020 - June 2021</em>
+&bull; Selected to be a part of a program that promotes computer science education
+&bull; Participated in multiple 9-week clubs that develops my programming skills in various areas: ReactJS, Intro to Java, Android Development, Retro Games, Google Stadia Maker
+&bull; Engaged in workshops that explored many distinct topics in professional and technical areas, like building a resume or using a Python based web app builder in Anvil

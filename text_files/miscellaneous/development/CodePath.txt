@@ -1,0 +1,4 @@
+<b>Student @ CodePath</b>
+<em>September 2022 - November 2022</em>
+&bull; Developed knowledge in Android Development in Kotlin such as working with Layouts, UI Interaction, RecyclerView, APIs and JSON, Fragments, etc.
+&bull; Built several projects in Android Studio: <a href="https://github.com/asder8215/Guess-the-4-Letter-Word">Wordle</a>, <a href="https://github.com/asder8215/Wishlist">Wishlist</a>, and <a href="https://github.com/asder8215/Flixster-Part-2">Latest Popular Movie Library</a> (using TMDb API)
