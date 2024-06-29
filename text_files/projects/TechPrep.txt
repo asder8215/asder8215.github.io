@@ -1,4 +1,4 @@
-<a href="https://github.com/asder8215/TechPrep"><b>TechPrep</b></a>
+<a href="https://github.com/asder8215/TechPrep" target="_blank"><b>TechPrep</b></a>
 <em>November 2022</em>
 &bull; Mobile application that prepares users for technical interviews with multiple choice style programming questions
 &bull; Utilized Android Studio, Kotlin, and QuizAPI for design, functionality, and creating question bank for the app

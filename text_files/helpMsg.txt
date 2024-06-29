@@ -2,6 +2,8 @@ Currently the commands available for this web terminal are:
 
 - cd [path]  : Changes the current directory to the provided path by user. Only allows one path name to be supplied. If no path is supplied, it stays in the current directory. 
 
+- clear      : Erases all information currently displayed on the terminal.
+
 - help       : Displays this help message for users to refer back to for information about commands currently offered.
 
 - ls [path]  : List all directories and files to either the provided path or if no path is provided to the current path.

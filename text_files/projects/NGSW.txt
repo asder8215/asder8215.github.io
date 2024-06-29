@@ -1,4 +1,4 @@
-<a href="https://github.com/asder8215/Arduino-Fortune-Wheel-Game"><b>Name the Game, Spin the Wheel</b></a>
+<a href="https://github.com/asder8215/Arduino-Fortune-Wheel-Game" target="_blank"><b>Name the Game, Spin the Wheel</b></a>
 <em>February 2022 - May 2022</em>
 &bull; Group project featuring an user-centric game allowing the players to imagine a game (e.g. 21, HighLow, etc.) to
 play on a spinning wheel numbered 1-8

@@ -1,4 +1,4 @@
-<a href="https://github.com/asder8215/asder8215.github.io"><b>Personal Website</b></a>
+<a href="https://github.com/asder8215/asder8215.github.io" target="_blank"><b>Personal Website</b></a>
 <em>June 2024 - Present</em>
 &bull; Utilized jQuery Terminal package to build a terminal-based personal website that contains information about my education, experience, projects, and any other miscellaneous topics
 &bull; Commands are built from scratch and so far this terminal allows user to navigate through cd, list files and directories in the terminal through ls, display information within each file & directory through stat, and a few other commands have been implemented
