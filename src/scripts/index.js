@@ -47,9 +47,9 @@ rootFileNode.findChildByName("miscellaneous").addChild(
 );
 
 rootFileNode.findChildByName("miscellaneous").findChildByName("development").addChild(
-    new RegFile("Student @ CodePath", returnData(rawGitHubUrl + "miscellaneous/development/CodePath.txt")),
-    new RegFile("Karim Kharbouch Coding Fellow @ TKH", returnData(rawGitHubUrl + "miscellaneous/development/KKCF.txt")),
-    new RegFile("Student @ Google Code Next", returnData(rawGitHubUrl + "miscellaneous/development/GCN.txt"))
+    new RegFile("CodePath", returnData(rawGitHubUrl + "miscellaneous/development/CodePath.txt")),
+    new RegFile("TKH", returnData(rawGitHubUrl + "miscellaneous/development/KKCF.txt")),
+    new RegFile("Google Code Next", returnData(rawGitHubUrl + "miscellaneous/development/GCN.txt"))
 );
 
 
@@ -212,6 +212,10 @@ function parseFile(directory, dirCheck, numArgAllowed, terminal, echoError = tru
     return changeNodeTo;
 }
 
+// TODO (not urgent): Has to autocomplete words with spaces properly
+// i.e. miscellaneous/development/Student @ CodePath & miscellaneous/development/Student @ Google Code Next
+// If you autocomplete for Student, it'll do miscellaneous/development/Student\ @\  but it'll no longer be able
+// to autocomplete for CodePath or Google Code Next after typing C or G.
 // parse the inputted arguments that user puts in on terminal screen
 // @param string   : contains the current string that the user is typing
 // @param callback : callback function to autocompleting echo message
