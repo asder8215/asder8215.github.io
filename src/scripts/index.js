@@ -25,16 +25,16 @@ rootFileNode.addChild(
 );
 
 rootFileNode.findChildByName("projects").addChild(
-    new RegFile("TeXiT", returnData(rawGitHubUrl + "projects/TeXiT.txt")), 
-    new RegFile("Name the Game, Spin the Wheel", returnData(rawGitHubUrl + "projects/NGSW.txt")),
-    new RegFile("TechPrep", returnData(rawGitHubUrl + "projects/TechPrep.txt")),
-    new RegFile("Personal Website", returnData(rawGitHubUrl + "projects/Personal_Website.txt"))
+    new RegFile("TeXiT", returnData(rawGitHubUrl + "projects/TeXiT.txt"), null, "2023,08,13"), 
+    new RegFile("Name the Game, Spin the Wheel", returnData(rawGitHubUrl + "projects/NGSW.txt"), null, "2022,05,01"),
+    new RegFile("TechPrep", returnData(rawGitHubUrl + "projects/TechPrep.txt"), null, "2022,11,12"),
+    new RegFile("Personal Website", returnData(rawGitHubUrl + "projects/Personal_Website.txt"), null, "2024,06,30")
 );
 
 rootFileNode.findChildByName("experiences").addChild(
-    new RegFile("College Bridge Coach @ Good Shepherd Services", returnData(rawGitHubUrl + "experiences/GSS.txt")),
-    new RegFile("Education Fellow @ ELiTE", returnData(rawGitHubUrl + "experiences/ELiTE.txt")),
-    new RegFile("Quality Engineer @ Ceros", returnData(rawGitHubUrl + "experiences/Ceros.txt"))
+    new RegFile("College Bridge Coach @ Good Shepherd Services", returnData(rawGitHubUrl + "experiences/GSS.txt"), null, "2022,06,25"),
+    new RegFile("Education Fellow @ ELiTE", returnData(rawGitHubUrl + "experiences/ELiTE.txt"), null, "2024,06,22"),
+    new RegFile("Quality Engineer @ Ceros", returnData(rawGitHubUrl + "experiences/Ceros.txt"), null, "2022,08,19")
 );
 
 rootFileNode.findChildByName("education").addChild(
@@ -47,9 +47,9 @@ rootFileNode.findChildByName("miscellaneous").addChild(
 );
 
 rootFileNode.findChildByName("miscellaneous").findChildByName("development").addChild(
-    new RegFile("CodePath", returnData(rawGitHubUrl + "miscellaneous/development/CodePath.txt")),
-    new RegFile("TKH", returnData(rawGitHubUrl + "miscellaneous/development/KKCF.txt")),
-    new RegFile("Google Code Next", returnData(rawGitHubUrl + "miscellaneous/development/GCN.txt"))
+    new RegFile("CodePath", returnData(rawGitHubUrl + "miscellaneous/development/CodePath.txt"), null, "2022,11,15"),
+    new RegFile("TKH", returnData(rawGitHubUrl + "miscellaneous/development/KKCF.txt"), null, "2020,08,29"),
+    new RegFile("Google Code Next", returnData(rawGitHubUrl + "miscellaneous/development/GCN.txt"), null, "2021,06,25")
 );
 
 
@@ -225,10 +225,23 @@ function parseCommands(string, callback, terminal){
     let allowedCmds = ["cd", "help", "ls", "pwd", "stat"]; 
     let noArgCmd = ["pwd", "help"];
     let dirCmds = ["cd", "ls"];
+    let cmdsWithOpts = ["ls"];
+    let optsWithCmds = {
+        "ls": ['-d']
+    };
+
     if (listOfArgs.length == 1){
-        callback(allowedCmds)
+        callback(allowedCmds);
     }
-    else if(listOfArgs.length == 2){
+
+    // if there exist option flags for commands, then shift the arr so that autocompletion operates on directory path.
+    if(listOfArgs.length == 3){
+        if(cmdsWithOpts.includes(listOfArgs[0]) && optsWithCmds[listOfArgs[0]].includes(listOfArgs[1])){
+            listOfArgs.splice(1, 1);
+        }
+    }
+
+    if(listOfArgs.length == 2){
         if(!(noArgCmd.includes(listOfArgs[0])) && allowedCmds.includes(listOfArgs[0])){
             let lastSlashIndex = listOfArgs[1].split('').reverse().join('').indexOf("/");
             if(lastSlashIndex == -1){
@@ -309,15 +322,35 @@ $('.terminalSection').terminal({
     // TODO: Add option to display file by chronological order.
     // TODO: Add Created Time when echoing file names on the terminal with -d flag.
     // List out all the info of the given dir
-    // Blue are directories, white are regular files
-    // @param <directory> : optional argument to check one specific directory path
+    // Green are directories, white are regular files
+    // @param <:d> <directory> : optional argument to check one specific directory path possibly with
+    //                           sorting it by chronological order or alphabetically.
     ls: function(...directory){
-        let changeNodeTo = parseFile(directory, true, 1, this);
+        let dateFlag = false;
+        if(directory.length != 0){
+            if(directory[0] === "-d"){
+                dateFlag = true;
+                directory.shift();
+            }
+            else if(directory[0][0] === "-"){
+                this.echo('<span style="color:red">Unrecognized flag ' + directory[0] + '.</span>', echoDiv);
+                return;
+            }
+        }
+
+        let changeNodeTo = parseFile(directory, true, 1, this, dateFlag = dateFlag);
         if(changeNodeTo == null){
             return;
         }
 
-        var childrenList = changeNodeTo.getChildren();
+        var childrenList;
+        if (dateFlag){
+            childrenList = changeNodeTo.getChildrenByDate();
+        }
+        else{
+            childrenList = changeNodeTo.getChildren();
+        }
+
         for(let i = 0; i < childrenList.length; i++){
             if (childrenList[i] instanceof Directory){
                 this.echo('<span style="color:green">' + childrenList[i].getFileName() + '</span>', echoDiv);

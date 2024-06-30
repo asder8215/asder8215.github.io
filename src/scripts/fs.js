@@ -13,6 +13,11 @@ class FileNode {
     #data = null;
     // type: FileNode; parent of this current FileNode
     #parent = null;
+    // In the future, I may make this date be for Last Modified date, if I want to allow users to modify file content (temporarily)
+    // on the site
+    // type: string; created date of this FileNode (or for some, it'll be date in relation to the content of the file itself)
+    // Note: This date needs to be in a format where the Date object can parse it
+    #date = null;
     // type: FileNode; shares root to all instances of the FileNode class
     static root = null;
 
@@ -20,9 +25,10 @@ class FileNode {
     // @param fileName : name of the file node
     // @param data     : content of the file node
     // @param parent   : parent node of the file node
-    constructor(fileName, data = null, parent = null) {
+    constructor(fileName, data = null, parent = null, date = null) {
         this.setFileName(fileName);
         this.setData(data);
+        this.setDate(date);
         let isRoot = false;
         // first Directory instance will become root
         // may update this later to support reassigning root
@@ -84,6 +90,12 @@ class FileNode {
         return this.#parent;
     }
 
+    // Retrieves the date string of the FileNode
+    // @return date string of the file node
+    getDate() {
+        return this.#date;
+    }
+
     // Set the file name for the FileNode
     // @param fileName : the name to assign to the FileNode
     setFileName(fileName) {
@@ -131,6 +143,17 @@ class FileNode {
         }
         this.#parent = parent;
     }
+
+    // Set the date for the FileNode
+    // @param date : the date to assign to the FileNode
+    setDate(date) {
+        // error checking for data: it cannot be a diff type than string or Promised info
+        if (!(typeof date === "string") || isNaN(Date.parse(date))){
+            console.log("Invalid date value.");
+            return;
+        }
+        this.#date = date;
+    }
 };
 
 // Regular File Class built on FileNode
@@ -139,8 +162,8 @@ class RegFile extends FileNode {
     // @param fileName : name of the file node
     // @param data     : content of the file node
     // @param parent   : parent node of the file node
-    constructor(fileName, data = null, parent = null){
-        super(fileName, data, parent);
+    constructor(fileName, data = null, parent = null, date = null){
+        super(fileName, data, parent, date);
     }
 };
 
@@ -210,8 +233,8 @@ class Directory extends FileNode {
     // @param data     : content of the file node
     // @param parent   : parent node of the file node
     // @param children : list of file nodes to the current directory
-    constructor(fileName, data = null, parent = null, children = []){
-        super(fileName, data, parent);
+    constructor(fileName, data = null, parent = null, date = null, children = []){
+        super(fileName, data, parent, date);
         this.#children = this.#validFileNodeList(children);
     }
 
@@ -219,6 +242,24 @@ class Directory extends FileNode {
     // @return list of FileNodes for the current Directory
     getChildren() {
         return this.#children;
+    }
+
+    // Retrieves the list of descendant Files Nodes of the FileNode sorted by date if possible.
+    // @return list of FileNodes for the current Directory by date
+    getChildrenByDate() {
+        // making a copy of the this.getChildren() array to prevent the sort method from modifying original arr.
+        var childrenListByDate = [...this.getChildren()];
+        
+        childrenListByDate.sort(function(a, b){
+            if (a.getDate() !== null && b.getDate() !== null){
+                console.log("Sorting by date");
+
+                return new Date(Date.parse(b.getDate()) - Date.parse(a.getDate()));
+            }
+            return 0;
+        });
+
+        return childrenListByDate;
     }
 
     // Retrieves the list of all file names within the Directory
