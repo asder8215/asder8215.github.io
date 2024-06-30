@@ -1,26 +1,41 @@
+/* TODOs: 
+* Find some way to add gaussian blur background without it
+overriding the blur value of the div boxes for about me and terminal.
+* Find a way to add border radius to the scrollbars for the about me
+and terminal, so that it looks more rounded on the ends.
+* Maybe in the future haev the website rescalable appropriately when
+reducing width and height only (rn it works with a combination of width
+and height)
+* Possibly add animation to the website, like a typing effect on the
+about me description.
+*/
+
 * {
     box-sizing: border-box;
 }
 
-/* body {
-    margin:0;
-} */
-
+body {
+    background-color: #300A24;
+    /* filter: blur(1.5rem) */
+}
 
 /* Font styles */
 .poppinsFont {
     font-family: "Poppins";
     font-weight: 500;
+    color:white;
 }
 
 .sourceCodeProFont {
     font-family: "Source Code Pro";
     font-weight: 400;
+    color:white;
 }
 
 .promptFont {
     font-family: "Prompt";
     font-weight: 300;
+    color:white;
 }
 
 /* Used in Header section, About Me section, and Terminal section */
@@ -32,14 +47,14 @@
 .row {
     display: flex;
     justify-content: space-between;
-    gap: 2em;
+    gap: calc(0.96vh + 0.96vw);
     align-items: center;
-    height:78vh;
-    padding-left: 0.5em;
+    height: calc(26.2vh + 26.2vw);
+    padding-left: calc(0.32vh + 0.32vw);
 }
   
 .col {
-    height:76vh;
+    height: calc(25.5vh + 25.5vw);
 }
 
 .col, .centerHeader {
@@ -51,30 +66,34 @@
 /* Header Section Styling */
 .centerHeader {
     text-align: center;
-    height: 18vh;
-    width:25vw;
+    height: calc(6.48vh + 6.48vw);
+    width: calc(16vh + 16vw);
     margin:auto;
+    background-color: #300A24 !important;
+    /* filter: blur(0) !important; */
 }
 
 .nameHeader {
-    font-size: 5vh;
-    padding-top: 1vh;
+    font-size: calc(1.7vh + 1.7vw);
+    padding-top: calc(0.36vh + 0.36vw);
 }
 
 .positionHeader {
-    font-size: 2vh;
+    font-size: calc(0.72vh + 0.72vw);
 }
 
 .locationHeaderRow {
-    font-size: 1.5vh;
+    font-size: calc(0.54vh + 0.54vw);
 }
 
 .locationIcon {
-    padding-right: 0.1vw;
+    padding-right: calc(0.064vh + 0.064vw);
+    color:white;
 }
 
 .socials {
-    font-size: 3vh;
+    font-size: calc(1.08vh + 1.08vw);
+    color:white;
 }
 
 .socialLinks {
@@ -82,38 +101,50 @@
 }
 
 .emailLink, .githubLink {
-    padding-right: 1vw;
+    padding-right: calc(0.64vh + 0.64vw);
 }
 
 /* Terminal Section Styling */
 .terminal {
-    --color: black;
-    --background: white;
+    --color: white;
+    --background: 	#300A24 !important;
     --link-color: blue;
     --animation: terminal-underline;
     --line-thickness: 3;
     --font:"inconsolata";
+    /* filter:blur(0) !important; */
     height:100%;
 }
 
 .terminalWrapper {
-    /* max-height: 98vh; */
     overflow-y:auto;
-    flex: 50vw;
+    /* scrollbar-color:#fff #300A24; */
+    flex: calc(32vh + 32vw);
 }
 
 
 @media screen and (min-width: 1200px) {
     :root {
-        --size: 2;
+        --size:2;
     }
 }
 
+@media screen and (max-width: 1200px) {
+    :root {
+        --size:1.5;
+    }
+}
 
 /* Bio Section Styling*/
 .bioWrapper {
-    flex: 50vw;
-    padding-left: 1.5em;
+    overflow-y:auto;
+    /* scrollbar-color:#282b30 #300A24; */
+    scrollbar-color:#fff #300A24;
+    scrollbar-width: thin;
+    flex: calc(32vh + 32vw);
+    padding-left: calc(0.512vh + 0.512vw);
+    background-color: #300A24 !important;
+    /* filter:blur(0) !important; */
 }
 
 .headshotImg{
@@ -122,16 +153,16 @@
     margin-left: auto;
     margin-right: auto;
     width:auto;
-    height:20vh;
+    height:calc(7.2vh + 7.2vw);
 }
 
 .aboutHeader {
-    font-size: 3vh;
+    font-size: calc(1.08vh + 1.08vw);
     text-align: center;
 }
 
 .aboutDescription {
-    font-size: 2vh;
+    font-size: calc(0.72vh + 0.72vw);
 }
 
 /* Footer Section Styling */
@@ -139,30 +170,9 @@
 .centerFooter {
     text-align: center;
     margin: auto;
-    height: 2vh;
+    height: calc(0.2vh + 0.2vw);
 }
 
 .footerDesc {
-    font-size: 1vh;
+    font-size: calc(0.36vh + 0.36vw);
 }
-/* If the screen size is 601px wide or more, set the font-size of <div> to 40px
-@media screen and (min-width: 601px) {
-    .headshotImg {
-        width:auto;
-        height:20vh;
-    }
-    /* .aboutMe {
-      font-size: 40px;
-    } */
-/* } */
-  
-/* If the screen size is 600px wide or less, set the font-size of <div> to 20px */
-/* @media screen and (max-width: 600px) {
-    .headshotImg {
-        width:auto;
-        height:20vh;
-    } */
-    /* .aboutMe {
-      font-size: 20px;
-    } */
-/* } */

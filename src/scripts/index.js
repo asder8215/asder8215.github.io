@@ -268,7 +268,7 @@ function parseCommands(string, callback, terminal){
 // @completions    : a list of all available options for user with given input
 // @param terminal : terminal instance object
 function doubleTabCompletion(completions, terminal){
-    terminal.echo('$' + '<span style="color:blue">' + currPath + '/' + '</span>' + '> ' + terminal.get_command(), echoDiv);
+    terminal.echo('$' + '<span style="color:green">' + currPath + '/' + '</span>' + '> ' + terminal.get_command(), echoDiv);
 
     // sort the available options
     completions = completions.sort(function(a, b){
@@ -307,6 +307,7 @@ $('.terminalSection').terminal({
         this.echo(helpMsg, echoDiv);
     },
     // TODO: Add option to display file by chronological order.
+    // TODO: Add Created Time when echoing file names on the terminal with -d flag.
     // List out all the info of the given dir
     // Blue are directories, white are regular files
     // @param <directory> : optional argument to check one specific directory path
@@ -319,7 +320,7 @@ $('.terminalSection').terminal({
         var childrenList = changeNodeTo.getChildren();
         for(let i = 0; i < childrenList.length; i++){
             if (childrenList[i] instanceof Directory){
-                this.echo('<span style="color:blue">' + childrenList[i].getFileName() + '</span>', echoDiv);
+                this.echo('<span style="color:green">' + childrenList[i].getFileName() + '</span>', echoDiv);
             }
             else if (childrenList[i] instanceof RegFile){
                 this.echo(childrenList[i].getFileName(), echoDiv);
@@ -336,7 +337,7 @@ $('.terminalSection').terminal({
 
         currNode = changeNodeTo;
         let currPath = absolutePath(changeNodeTo);
-        this.set_prompt('$' + '[[;blue;]' + currPath + ']' + '> ');
+        this.set_prompt('$' + '[[;green;]' + currPath + ']' + '> ');
     },
     // Print the content of a directory/file
     // @param <directory> : optional argument to check one specific directory path
@@ -362,7 +363,7 @@ $('.terminalSection').terminal({
 }, {
     checkArity: false,
     greetings: 'Welcome to my terminal. Type "help" to see all commands available with this terminal currently.',
-    prompt: '$' + '[[;blue;]' + currPath + '/' + ']' + '> ',
+    prompt: '$' + '[[;green;]' + currPath + '/' + ']' + '> ',
     // completion will call on parseCommands to appropriately find
     // options that user can autocomplete to
     // more info here: https://github.com/jcubic/jquery.terminal/wiki/Tab-completion
