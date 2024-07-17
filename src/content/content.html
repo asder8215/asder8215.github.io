@@ -1,9 +1,31 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- Google Font imports -->
+        
+        <!-- Inconsolata font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+        
+        <!-- Poppins font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+        <!-- Source Code Pro font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+
+        <!-- Prompt font-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
         <!-- importing own JS and CSS -->
-        <script defer src="src/scripts/index.js"></script>
-        <link rel="stylesheet" href="src/styles/index.css"/>
+        <!-- <script defer src="src/scripts/index.js"></script> -->
+        <link rel="stylesheet" href="../styles/index.css"/>
     </head>
     <body>
         <div id="~" style="display: none">
@@ -29,10 +51,49 @@
                 </p>
             </div>
         </div>
-        <div id="education" style="display:none">
+        <div id="education">
             <div class="fadeInEffect">
-                <p>This is a test.</p>
+                <br>
+                <h3 class="header aboutHeader poppinsFont"> Education </h3>
+                <br>
+                <img class="schoolImg" src="images/Columbia_University.jpg" alt="Columbia University campus">
+                <!-- <img class="schoolImg" src="../../images/Columbia_University.jpg" alt="Columbia University campus"> -->
+                <div class="header aboutDescription sourceCodeProFont">
+                    <center>
+                        <p>
+                                <b>Columbia University</b>
+                                <br>
+                                <em>September 2021 - May 2025</em>
+                                <br>
+                                B.S. in Computer Science
+                        </p>
+                    </center>
+                    <span> <u>Relevant CourseWorks</u> </span>
+                    <ul style="margin: 0;">
+                        <table>
+                            <tbody>
+                                <tr><td><li> Fall 2021: Introduction to Computing for Engineers & Applied Scientists (Python) </li></td></tr>
+                                <tr><td><li> Spring 2022: Introduction to Programming/Java, Discrete Mathematics, Multivariable Calculus </li></td></tr>
+                                <tr><td><li> Fall 2022: Data Structure & Algorithm, Fundamentals of Computer Systems </li></td></tr>
+                                <tr><td><li> Spring 2023: Computer Science Theory, Introduction to Probability & Statistics, Advanced Programming in C and UNIX, Linear Algebra, Competitive Programming </li></td></tr>
+                                <tr><td><li> Fall 2023: Introduction to Databases, Artificial Intelligence, Natural Language Processing </li></td></tr>
+                                <tr><td><li> Spring 2024: Computer Graphics, Advanced Systems Programming </li></td></tr>
+                                <tr><td><li> Fall 2024: Advanced Software Engineering, Computer Architecture, Fundamental Large Scale Distributed Systems, Malware Analysis & Reverse Engineering, Programming Language & Translators, Security I </li></td></tr>
+                            </tbody>
+                        </table>
+                    </ul>
+                    <br>
+                    <span> <u>Clubs/Organizations</u> </span>
+                    <ul style="margin: 0;">
+                        <table>
+                            <tbody>
+                                <tr><td><li> CU Anime Club </li></td></tr>
+                            </tbody>
+                        </table>
+                    </ul>
+                </div>
             </div>
         </div>
+        
     </body>
 </html>
