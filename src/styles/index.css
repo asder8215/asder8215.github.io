@@ -3,7 +3,7 @@
 overriding the blur value of the div boxes for about me and terminal.
 * Find a way to add border radius to the scrollbars for the about me
 and terminal, so that it looks more rounded on the ends.
-* Maybe in the future haev the website rescalable appropriately when
+* Maybe in the future have the website rescalable appropriately when
 reducing width and height only (rn it works with a combination of width
 and height)
 * Possibly add animation to the website, like a typing effect on the
@@ -17,6 +17,11 @@ about me description.
 body {
     background-color: #300A24;
     /* filter: blur(1.5rem) */
+}
+
+a, .links {
+    color:lightgreen;
+    cursor:pointer;
 }
 
 /* Font styles */
@@ -52,16 +57,32 @@ body {
     height: calc(26.2vh + 26.2vw);
     padding-left: calc(0.32vh + 0.32vw);
 }
+
+/* navRow for the right side of the website to split the terminal and file explorer in halves*/
+.navigationRow {
+    height: 50%;
+    flex: 1;
+    overflow-y:auto;
+    scrollbar-color:#fff #300A24;
+    scrollbar-width: thin;
+    /* padding-left: calc(0.32vh + 0.32vw); */
+}
   
 .col {
     height: calc(25.5vh + 25.5vw);
 }
 
-.col, .centerHeader {
+.col, .centerHeader, .navigationRow {
     box-shadow: 0px -2px 20px 2px rgba(0, 0, 0, 0.4);
     border-radius: 1em;
 }
 
+/* navCol for the right side of the website*/
+.navCol {
+    display:flex;
+    flex-direction: column;
+    height: calc(25.5vh + 25.5vw);
+}
 
 /* Header Section Styling */
 .centerHeader {
@@ -104,23 +125,58 @@ body {
     padding-right: calc(0.64vh + 0.64vw);
 }
 
+/* Right Side of the Website (the navigation side of the website) */ 
+.fileWrapper {
+    flex: 1;
+    width: calc(30.5vh + 30.5vw);
+    
+}
+
+/* File Explorer Section Styling */
+#folderExplorer {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top:calc(2vh + 2vw);
+    padding-left: calc(1vw + 1vh);
+}
+
+.file {
+    flex: 0 0 calc(5vh + 5vw);
+    text-align: center;
+}
+
+/* Hover effect for folders and files in the interactive folder section */
+.hoverOutline:hover {
+    box-shadow: 0px -2px 20px -4px rgba(80, 76, 76, 0.4);
+    border-radius: 1em;
+}
+
+.folderIcon, .fileIcon, .backIcon{
+    font-size: calc(1.5vh + 1.5vw);
+}
+
+.fileName {
+    font-size: calc(0.5vh + 0.5vw);
+    margin-top: calc(1vh + 1vw);
+    line-height: 0;
+}
+
 /* Terminal Section Styling */
 .terminal {
     --color: white;
     --background: 	#300A24 !important;
     --link-color: blue;
     --animation: terminal-underline;
-    --line-thickness: 3;
+    /* --line-thickness: 3; */
     --font:"inconsolata";
     /* filter:blur(0) !important; */
-    height:100%;
+    height:95%;
 }
 
-.terminalWrapper {
-    overflow-y:auto;
-    /* scrollbar-color:#fff #300A24; */
-    flex: calc(32vh + 32vw);
-}
+/* unused for now but perhaps will be worked on later? */
+/* .terminalWrapper {
+     overflow-y:auto;
+} */
 
 
 @media screen and (min-width: 1200px) {
@@ -138,16 +194,25 @@ body {
 /* Bio Section Styling*/
 .bioWrapper {
     overflow-y:auto;
-    /* scrollbar-color:#282b30 #300A24; */
     scrollbar-color:#fff #300A24;
     scrollbar-width: thin;
-    flex: calc(32vh + 32vw);
+    flex: 1;
     padding-left: calc(0.512vh + 0.512vw);
     background-color: #300A24 !important;
     /* filter:blur(0) !important; */
 }
 
-.headshotImg{
+/* Fade in animation effect */
+.fadeInEffect {
+    animation: fadeIn 3s; /* src: https://blog.hubspot.com/website/css-fade-in*/
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+.headshotImg, .schoolImg{
     border-radius: 1em;
     display:block;
     margin-left: auto;
