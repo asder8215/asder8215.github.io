@@ -333,7 +333,7 @@ class Directory extends FileNode {
         });
     }
 
-    // Finds a certain File Node by file name
+    // Finds a certain File Node by file name directly from current node
     // @param fileName : the File Node to search for with a specific name
     // @return           the File Node child with the file name on success or null on failure
     findChildByName(fileName){
@@ -341,6 +341,24 @@ class Directory extends FileNode {
             if(child.getFileName() === fileName){
                 return child;
             }
+        }
+        return null;
+    }
+
+    // Finds a certain File Node by file name exhaustively within current node via BFS
+    // @param fileName : the File Node to search for with a specific name
+    // @return           the File Node child with the file name on success or null on failure
+    findChildByNameBFS(fileName){
+        let fileNodeList = this.getChildren();
+        while(fileNodeList.length() !== 0){
+            if(fileNodeList[0].getFileName() === fileName){
+                return fileNodeList[0];
+            }
+            let childrenList = fileNodeList[0].getChildren();
+            for(let i = 0; i < childrenList.length; i++){
+                fileNodeList.push(childrenList[i]);
+            }
+            fileNodeList.shift();
         }
         return null;
     }
