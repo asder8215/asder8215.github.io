@@ -134,7 +134,6 @@ function changeHTMLBioContent(id){
 function changeFolder(fileName, execTerm){
     let fileNode = currNode;
     fileName = fileName.split('/');
-    console.log(fileName)
 
     for (let i = 0; i < fileName.length; i++){
         if (i == 0 && fileName[0] === "~"){
@@ -516,53 +515,3 @@ var term = $('.terminalSection').terminal({
     },
     wrap:true
 });
-
-// // Changes the file/folder explorer UI (the bottom right box section on website) based on
-// // if user cd's to a diff directory from terminal or clicks on the folders or files.
-// // Clicking on a folder or file will also change content displayed on the .bioWrapper class div
-// // from index.html.
-// // @param fileName : the File Node to search for with a specific name
-// // @param execTerm : whether to make terminal exec a command or not (yes if coming from file explorer clicks, no if from terminal side)
-// function changeFolder(fileName, execTerm){
-//     console.log(execTerm);
-//     console.log(fileName);
-//     let fileNode;
-//     // if(fileName === ".."){
-
-//     // }
-//     if (fileName === "..") {
-//         fileNode = currNode.getParent();
-//     }
-//     else if(currNode.getParent() != null && fileName === currNode.getParent().getFileName()){
-//         fileNode = currNode.getParent();
-//     }
-//     else {
-//         fileNode = currNode.findChildByName(fileName);
-//     }
-//     let resultingFiles = ""
-
-//     if(fileNode != rootFileNode){
-//         resultingFiles += '<div id="back'  + 'File" class="file fadeInEffect hoverOutline" onclick="changeFolder(\'..\', \'1\')"><i class="bi bi-arrow-return-left backIcon"></i><br><br><span class="fileName"> Back </span></div>'
-//     }
-    
-//     if (fileNode instanceof Directory){
-//         let childrenNodes = fileNode.getChildrenByDate();
-//         for(let i= 0; i < childrenNodes.length; i++){
-//             if (childrenNodes[i] instanceof Directory){
-//                 resultingFiles += '<div id="' + childrenNodes[i].getFileName() + 'Folder" class="file fadeInEffect hoverOutline" onclick="changeFolder(\'' + childrenNodes[i].getFileName() + '\', \'1\')"><i class="bi bi-folder fileIcon"></i><br><br><span class="fileName">' + childrenNodes[i].getFileName() +'</span></div>'
-//             }
-//             else if(childrenNodes[i] instanceof RegFile){
-//                 resultingFiles += '<div id="' + childrenNodes[i].getFileName() + 'File" class="file fadeInEffect hoverOutline" onclick="changeFolder(\'' + childrenNodes[i].getFileName() + '\', \'1\')"><i class="bi bi-files fileIcon"></i><br><br><span class="fileName">' + childrenNodes[i].getFileName() +'</span></div>'
-//             }
-//         }
-//         if (execTerm === "1"){
-//             term.exec("cd \"" + fileName + "\"");
-//         }
-//         $('#folderExplorer').html(resultingFiles);
-//     }
-//     else{
-//         if (execTerm === "1"){
-//             term.exec("stat \"" + fileName + "\"");
-//         }
-//     }
-// }
