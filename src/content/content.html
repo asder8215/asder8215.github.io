@@ -28,120 +28,211 @@
         <link rel="stylesheet" href="../styles/index.css"/>
     </head>
     <body>
-        <div id="~" style="display: none">
-            <div class="fadeInEffect">
+
+        <!-- Home section content -->
+        <div id="~" style="display: none;">
+            <br>
+            <img class="headshotImg" src="images/Headshot.jpg" alt="Mahdi's Headshot Photo">
+            <br>
+            <h3 class="header aboutHeader poppinsFont"> About Me </h3>
+            <p class="header aboutDescription sourceCodeProFont">
+                Hello! My name is Mahdi Ali-Raihan. I'm currently a senior at Columbia University studying Computer Science. My primary interest lies in low level systems programming, AI, mobile app development, and fintech. I'm open to learning about other fields in CS though!
                 <br>
-                <img class="headshotImg" src="images/Headshot.jpg" alt="Mahdi's Headshot Photo">
                 <br>
-                <h3 class="header aboutHeader poppinsFont"> About Me </h3>
-                <p class="header aboutDescription sourceCodeProFont">
-                    Hello! My name is Mahdi Ali-Raihan. I'm currently a senior at Columbia University studying Computer Science. My primary interest lies in low level systems programming, AI, mobile app development, and fintech. I'm open to learning about other fields in CS though!
-                    <br>
-                    <br>
-                    In my free time, I like to read books, watch shows/animes, play Ping Pong/Badminton, play some games on my PC/PS5/Nintendo Switch, or work on some coding projects. I'm also currently learning how to play the ukulele.
-                    <br>
-                    <br>
-                    From time to time, I'll update this website and you can look through my education, experiences, projects, hobbies, and what I'm up to currently in the terminal. Currently, the commands supported by the terminal are: cd, clear, help, ls, pwd, stat. Use 'help' to see detailed usage of the commands.
-                    <br>
-                    <br>
-                    You can take a look at my <a href="resume/Mahdi Ali-Raihan Resume.pdf" target="_blank">resume</a> here as well!
-                    <br>
-                    <br>
-                    Thanks for checking out my website!
-                </p>
-            </div>
+                In my free time, I like to read books, watch shows/animes, play Ping Pong/Badminton, play some games on my PC/PS5/Nintendo Switch, or work on some coding projects. I'm also currently learning how to play the ukulele.
+                <br>
+                <br>
+                From time to time, I'll update this website and you can look through my education, experiences, projects, hobbies, and what I'm up to currently in the terminal. Currently, the commands supported by the terminal are: cd, clear, help, ls, pwd, stat. Use 'help' to see detailed usage of the commands.
+                <br>
+                <br>
+                You can take a look at my <a href="resume/Mahdi Ali-Raihan Resume.pdf" target="_blank">resume</a> here as well!
+                <br>
+                <br>
+                Thanks for checking out my website!
+            </p>
         </div>
-        <div id="education">
+
+
+        <!-- Education section content -->
+        <div id="education" style="display: none;">
             <br>
             <h3 class="header aboutHeader poppinsFont"> Education </h3>
-            <div class="ColumbiaUniversity">
+            <div class="header aboutDescription sourceCodeProFont">
+                <p>These are all educational institutions or fellowships I have received learning from.</p>
+                <span> <u>Institutions/Fellowships</u> </span>
+                <table>
+                    <tbody>
+                        <tr><td><li><a href="" onclick="changeHTMLBioContent('ColumbiaUniversity')"> Fall 2021 to Spring 2025: B.S. in Computer Science @ Columbia University </a></li></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Experiences section content -->
+        <div id="experiences" style="display:none;"> 
+            <br>
+            <h3 class="header aboutHeader poppinsFont"> Experiences </h3>
+            <div class="header aboutDescription sourceCodeProFont">
+                <p>You can take a look at my experiences. They are ordered chronologically here from most recent to least recent.</p>
+                <span> <u>Experiences</u> </span>
+                <table>
+                    <tbody>
+                        <tr><td><li><a href="" onclick="changeHTMLBioContent('EducationFellow@ELiTE')"> Education Fellow @ ELiTE </a></li></td></tr>
+                        <tr><td><li><a href="" onclick="changeHTMLBioContent('QualityEngineer@Ceros')"> Quality Engineer @ Ceros </a></li></td></tr>
+                        <tr><td><li><a href="" onclick="changeHTMLBioContent('CollegeBridgeCoach@GoodShepherdServices')"> College Bridge Coach @ Good Shepherd Services </a></li></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Miscellaneous section content -->
+        <div id="miscellaneous" style="display:none;">
+            <br>
+            <h3 class="header aboutHeader poppinsFont"> Miscellaneous </h3>
+            <div class="header aboutDescription sourceCodeProFont">
+                <p>This section will contain subdirectories to anything not mentioned by the education, experiences, and projects directory. Currently, there are two subdirectories in this folder: current (which is a work in progress) and development.</p>
+                <span> <u>Sub-Directories</u> </span>
+                <table>
+                    <tbody>
+                        <tr><td><li><a href="" onclick="changeHTMLBioContent('current')"> Current </a></li></td></tr>
+                        <tr><td><li><a href="" onclick="changeHTMLBioContent('development')"> Development </a></li></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Current section content -->
+        <div id="current" style="display:none;">
+            <br>
+            <h3 class="header aboutHeader poppinsFont"> Current </h3>
+            <div class="header aboutDescription sourceCodeProFont">
+                <p>This page is still a work in progress. Ideally, this would contain information about what I'm up to currently (project I'm working on, what I'm reading or watching, a hobby I'm investing time in, etc.)</p>
+            </div>
+        </div>
+
+        <!-- Development section content -->
+        <div id="development" style="display:none;">
+            <br>
+            <h3 class="header aboutHeader poppinsFont"> Development </h3>
+            <div class="header aboutDescription sourceCodeProFont">
+                <p>This page contains information about certain positions that have contributed to my leadership and technical skills. They are ordered here in chronological order from most recent to least recent.</p>
+                <span> <u>Leadership/Development</u> </span>
+                <table>
+                    <tbody>
+                        <tr><td><li><a href="" onclick="changeHTMLBioContent('CodePath')"> CodePath </a></li></td></tr>
+                        <tr><td><li><a href="" onclick="changeHTMLBioContent('GoogleCodeNext')"> Google Code Next </a></li></td></tr>
+                        <tr><td><li><a href="" onclick="changeHTMLBioContent('TKH')"> The Knowledge House (TKH) </a></li></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Projects section content -->
+        <div id="projects" style="display:none;">
+            <br>
+            <h3 class="header aboutHeader poppinsFont"> Projects </h3>
+            <div class="header aboutDescription sourceCodeProFont">
+                <p>In here, you can see all the projects I've worked on. I'll update this page every now and then to include previous projects I've worked on as well as future projects. The projects are ordered chronologically from the last time I've worked on them.</p>
+                <span> <u>Projects</u> </span>
+                <table>
+                    <tbody>
+                        <tr><td><li><a href="" onclick="changeHTMLBioContent('PersonalWebsite')"> Personal Website </a></li></td></tr>
+                        <tr><td><li><a href="" onclick="changeHTMLBioContent('TeXiT')"> TeXiT </a></li></td></tr>
+                        <tr><td><li><a href="" onclick="changeHTMLBioContent('TechPrep')"> TechPrep </a></li></td></tr>
+                        <tr><td><li><a href="" onclick="changeHTMLBioContent('NametheGame,SpintheWheel')"> Name the Game, Spin the Wheel </a></li></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Columbia University Information -->
+        <div id="ColumbiaUniversity" style="display:none;">
+            <br>
+            <img class="schoolImg" src="images/Columbia_University.jpg" alt="Columbia University campus">
+            <!-- <img class="schoolImg" src="../../images/Columbia_University.jpg" alt="Columbia University campus"> -->
+            <div class="header aboutDescription sourceCodeProFont">
+                <center>
+                    <p>
+                            <b>Columbia University</b>
+                            <br>
+                            <em>September 2021 - May 2025</em>
+                            <br>
+                            B.S. in Computer Science
+                    </p>
+                </center>
+                <span> <u>Relevant CourseWorks</u> </span>
+                <ul style="margin: 0;">
+                    <table>
+                        <tbody>
+                            <tr><td>
+                                <li> Fall 2021: </li> 
+                                <ul>
+                                    <li> Introduction to Computing for Engineers & Applied Scientists (Python) </li>
+                                </ul> 
+                            </td></tr>
+                            <tr><td>
+                                <li> Spring 2022: </li>
+                                <ul>
+                                    <li> Introduction to Computer Science in Java </li>
+                                    <li> Discrete Mathematics </li>
+                                    <li> Multivariable Calculus </li>
+                                </ul>
+                            </td></tr>
+                            <tr><td>
+                                <li> Fall 2022: </li>
+                                <ul>
+                                    <li> Data Structure & Algorithm </li>
+                                    <li> Fundamentals of Computer Systems </li>
+                                </ul>
+                            </td></tr>
+                            <tr><td>
+                                <li> Spring 2023: </li>
+                                <ul>
+                                    <li> Computer Science Theory </li>
+                                    <li> Introduction to Probability & Statistics </li>
+                                    <li> Advanced Programming in C and UNIX, Linear Algebra </li>
+                                    <li> Linear Algebra </li>
+                                    <li> Competitive Programming </li>
+                                </ul>
+                            </td></tr>
+                            <tr><td>
+                                <li> Fall 2023: </li>
+                                <ul>
+                                    <li> Introduction to Databases </li>
+                                    <li> Artificial Intelligence </li>
+                                    <li> Natural Language Processing </li>
+                                </ul>
+                            </td></tr>
+                            <tr><td>
+                                <li> Spring 2024: </li>
+                                <ul>
+                                    <li> Computer Graphics </li>
+                                    <li> Advanced Systems Programming </li>
+                                </ul>
+                            </td></tr>
+                            <tr><td>
+                                <li> Fall 2024: </li>
+                                <ul>
+                                    <li> Advanced Software Engineering </li>
+                                    <li> Computer Architecture </li>
+                                    <li> Fundamental Large Scale Distributed Systems </li>
+                                    <li> Malware Analysis & Reverse Engineering </li>
+                                    <li> Programming Language & Translators </li>
+                                    <li> Security I </li>
+                                </ul>
+                            </td></tr>
+                        </tbody>
+                    </table>
+                </ul>
                 <br>
-                <img class="schoolImg" src="images/Columbia_University.jpg" alt="Columbia University campus">
-                <!-- <img class="schoolImg" src="../../images/Columbia_University.jpg" alt="Columbia University campus"> -->
-                <div class="header aboutDescription sourceCodeProFont">
-                    <center>
-                        <p>
-                                <b>Columbia University</b>
-                                <br>
-                                <em>September 2021 - May 2025</em>
-                                <br>
-                                B.S. in Computer Science
-                        </p>
-                    </center>
-                    <span> <u>Relevant CourseWorks</u> </span>
-                    <ul style="margin: 0;">
-                        <table>
-                            <tbody>
-                                <tr><td>
-                                    <li> Fall 2021: </li> 
-                                    <ul>
-                                        <li> Introduction to Computing for Engineers & Applied Scientists (Python) </li>
-                                    </ul> 
-                                </td></tr>
-                                <tr><td>
-                                    <li> Spring 2022: </li>
-                                    <ul>
-                                        <li> Introduction to Computer Science in Java </li>
-                                        <li> Discrete Mathematics </li>
-                                        <li> Multivariable Calculus </li>
-                                    </ul>
-                                </td></tr>
-                                <tr><td>
-                                    <li> Fall 2022: </li>
-                                    <ul>
-                                        <li> Data Structure & Algorithm </li>
-                                        <li> Fundamentals of Computer Systems </li>
-                                    </ul>
-                                </td></tr>
-                                <tr><td>
-                                    <li> Spring 2023: </li>
-                                    <ul>
-                                        <li> Computer Science Theory </li>
-                                        <li> Introduction to Probability & Statistics </li>
-                                        <li> Advanced Programming in C and UNIX, Linear Algebra </li>
-                                        <li> Linear Algebra </li>
-                                        <li> Competitive Programming </li>
-                                    </ul>
-                                </td></tr>
-                                <tr><td>
-                                    <li> Fall 2023: </li>
-                                    <ul>
-                                        <li> Introduction to Databases </li>
-                                        <li> Artificial Intelligence </li>
-                                        <li> Natural Language Processing </li>
-                                    </ul>
-                                </td></tr>
-                                <tr><td>
-                                    <li> Spring 2024: </li>
-                                    <ul>
-                                        <li> Computer Graphics </li>
-                                        <li> Advanced Systems Programming </li>
-                                    </ul>
-                                </td></tr>
-                                <tr><td>
-                                    <li> Fall 2024: </li>
-                                    <ul>
-                                        <li> Advanced Software Engineering </li>
-                                        <li> Computer Architecture </li>
-                                        <li> Fundamental Large Scale Distributed Systems </li>
-                                        <li> Malware Analysis & Reverse Engineering </li>
-                                        <li> Programming Language & Translators </li>
-                                        <li> Security I </li>
-                                    </ul>
-                                </td></tr>
-                            </tbody>
-                        </table>
-                    </ul>
-                    <br>
-                    <span> <u>Clubs/Organizations</u> </span>
-                    <ul style="margin: 0;">
-                        <table>
-                            <tbody>
-                                <tr><td><li> CU Anime Club </li></td></tr>
-                            </tbody>
-                        </table>
-                    </ul>
-                </div>
+                <span> <u>Clubs/Organizations</u> </span>
+                <ul style="margin: 0;">
+                    <table>
+                        <tbody>
+                            <tr><td><li> CU Anime Club </li></td></tr>
+                        </tbody>
+                    </table>
+                </ul>
             </div>
         </div>
 

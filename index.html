@@ -63,7 +63,7 @@
             </div>
 
             <div class="row">
-                <div class="col bioWrapper">
+                <div class="col bioWrapper fadeInEffect">
                     <br>
                     <img class="headshotImg" src="images/Headshot.jpg" alt="Mahdi's Headshot Photo">
                     <br>
@@ -85,10 +85,44 @@
                     </p>
 
                 </div>
-                <div class="col terminalWrapper">
-                    <div class="terminalSection">
-                    </div>
+                <!-- Initial html for split terminal and file explorer section (everything else will be done in js) -->
+                <div class="fileWrapper">
+                    <div class="navCol">
+                        <div class="navigationRow terminalWrapper">
+                            <div class="terminalSection">
+                            </div>
+                        </div>
+                        <div class="navigationRow">
+                            <div id="folderExplorer" class="sourceCodeProFont">    
+                                <div id="educationFolder" class="file fadeInEffect hoverOutline" onclick="changeFolder('education', '1')">
+                                    <i class="bi bi-folder folderIcon"></i>
+                                    <br>
+                                    <br>
+                                    <span class="fileName"> education </span>
+                                </div>
+                                <div id="experiencesFolder" class="file fadeInEffect hoverOutline" onclick="changeFolder('experiences', '1')">
+                                    <i class="bi bi-folder folderIcon"></i>
+                                    <br>
+                                    <br>
+                                    <span class="fileName"> experiences </span>
+                                </div>
+                                <div id="miscellaneousFolder" class="file fadeInEffect hoverOutline" onclick="changeFolder('miscellaneous', '1')">
+                                    <i class="bi bi-folder folderIcon"></i>
+                                    <br>
+                                    <br>
+                                    <span class="fileName"> miscellaneous </span>
+                                </div>
+                                <div id="projectsFolder" class="file fadeInEffect hoverOutline" onclick="changeFolder('projects', '1')">
+                                    <i class="bi bi-folder folderIcon"></i>
+                                    <br>
+                                    <br>
+                                    <span class="fileName"> projects </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
                 </div>
+                
             </div>
             <footer class="centerFooter">
                 <p class="promptFont footerDesc"> Created by Mahdi Ali-Raihan © 2024 </p>
