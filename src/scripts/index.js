@@ -134,20 +134,38 @@ function changeHTMLBioContent(id){
 function changeFolder(fileName, execTerm){
     // console.log(execTerm);
     // console.log(fileName);
-    let fileNode;
+    let fileNode = currNode;
     // if(fileName === ".."){
+    // this is used to detect the number of dirUp should be performed based on .. given 
+    // let goUpDir = 0;
     fileName = fileName.split('/');
-    fileName = fileName[fileName.length - 1];
+    console.log(fileName)
+    // for(let up = 0; i < fileName.length - 1; i++){
+    //     if(fileName[i] === ".."){
+    //         goUpDir += 1;
+    //     }
     // }
-    if (fileName === "..") {
-        fileNode = currNode.getParent();
+
+    console.log(fileNode.getParent())
+    // for(let i = 0; i < )
+    // fileName = fileName[fileName.length - 1];
+    // }
+    for (let i = 0; i < fileName.length; i++){
+        if (i == 0 && fileName[0] === "~"){
+            fileNode = rootFileNode;
+            // console.log("Root")
+        }
+        else if(fileName[i] === "."){
+            continue;
+        }
+        else if (fileNode.getParent() !== null && fileName[i] === "..") {
+            fileNode = fileNode.getParent();
+        }
+        else if(fileName[i] !== ".."){
+            fileNode = fileNode.findChildByName(fileName[i]);
+        }
     }
-    else if(currNode.getParent() != null && fileName === currNode.getParent().getFileName()){
-        fileNode = currNode.getParent();
-    }
-    else {
-        fileNode = currNode.findChildByNameBFS(fileName);
-    }
+
     let resultingFiles = ""
 
     if(fileNode != rootFileNode){
@@ -457,14 +475,11 @@ var term = $('.terminalSection').terminal({
         //         return;
         //     }
         // }
-
         let changeNodeTo = parseFile(directory, true, 1, this);
         if(changeNodeTo == null){
             return;
         }
-        // if(affectFileExplorerFlag){
-        // }
-        changeFolder(changeNodeTo.getFileName(), "0");
+        changeFolder(directory[0], "0");
         currNode = changeNodeTo;
         let currPath = absolutePath(changeNodeTo);
         this.set_prompt('$' + '[[;green;]' + currPath + ']' + '> ');
