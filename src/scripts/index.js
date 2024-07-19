@@ -132,28 +132,13 @@ function changeHTMLBioContent(id){
 // @param fileName : the File Node to search for with a specific name
 // @param execTerm : whether to make terminal exec a command or not (yes if coming from file explorer clicks, no if from terminal side)
 function changeFolder(fileName, execTerm){
-    // console.log(execTerm);
-    // console.log(fileName);
     let fileNode = currNode;
-    // if(fileName === ".."){
-    // this is used to detect the number of dirUp should be performed based on .. given 
-    // let goUpDir = 0;
     fileName = fileName.split('/');
     console.log(fileName)
-    // for(let up = 0; i < fileName.length - 1; i++){
-    //     if(fileName[i] === ".."){
-    //         goUpDir += 1;
-    //     }
-    // }
 
-    console.log(fileNode.getParent())
-    // for(let i = 0; i < )
-    // fileName = fileName[fileName.length - 1];
-    // }
     for (let i = 0; i < fileName.length; i++){
         if (i == 0 && fileName[0] === "~"){
             fileNode = rootFileNode;
-            // console.log("Root")
         }
         else if(fileName[i] === "."){
             continue;
