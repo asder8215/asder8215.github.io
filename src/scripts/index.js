@@ -1,5 +1,9 @@
+// initial welcome msg bool check 
+let welcome = 0;
+
 // Msg value for commands + data
 const rawGitHubUrl = "https://raw.githubusercontent.com/asder8215/asder8215.github.io/main/text_files/";
+const rawGitHubUrlHTML = "https://raw.githubusercontent.com/asder8215/asder8215.github.io/main/src/content/content.html"
 const helpMsg = returnData(rawGitHubUrl + "helpMsg.txt");
 
 // Directory data. Hardcoded here because they aren't too long.
@@ -98,6 +102,79 @@ async function returnData(url){
     return val.text();
 }
 
+// Changes the content displayed in .bioWrapper class from index.html
+// @param id: the given id to retrieve content from within content.html to change .bioWrapper innerHTML with
+function changeHTMLBioContent(id){
+    // inner code inspired from: https://stackoverflow.com/questions/36631762/returning-html-with-fetch
+    returnData(rawGitHubUrlHTML).then(function(html){
+        // Initialize the DOM parser
+        var parser = new DOMParser();
+
+        // Parse the text
+        var doc = parser.parseFromString(html, "text/html");
+
+        // You can now even select part of that html as you would in the regular DOM 
+        // Example:
+        // var docArticle = doc.querySelector('article').innerHTML;
+        var htmlFadeInEffect = '<div class="fadeInEffect">' + doc.getElementById(id).innerHTML + '</div>'
+        // $('.bioWrapper').html(doc.getElementById(id).innerHTML);
+        $('.bioWrapper').html(htmlFadeInEffect);
+    })
+    .catch(function(err) {  
+        console.log('Failed to fetch page: ', err);  
+    });
+}
+
+// Changes the file/folder explorer UI (the bottom right box section on website) based on
+// if user cd's to a diff directory from terminal or clicks on the folders or files.
+// Clicking on a folder or file will also change content displayed on the .bioWrapper class div
+// from index.html.
+// @param fileName : the File Node to search for with a specific name
+// @param execTerm : whether to make terminal exec a command or not (yes if coming from file explorer clicks, no if from terminal side)
+function changeFolder(fileName, execTerm){
+    console.log(execTerm);
+    console.log(fileName);
+    let fileNode;
+    // if(fileName === ".."){
+
+    // }
+    if (fileName === "..") {
+        fileNode = currNode.getParent();
+    }
+    else if(currNode.getParent() != null && fileName === currNode.getParent().getFileName()){
+        fileNode = currNode.getParent();
+    }
+    else {
+        fileNode = currNode.findChildByName(fileName);
+    }
+    let resultingFiles = ""
+
+    if(fileNode != rootFileNode){
+        resultingFiles += '<div id="back'  + 'File" class="file fadeInEffect hoverOutline" onclick="changeFolder(\'..\', \'1\')"><i class="bi bi-arrow-return-left backIcon"></i><br><br><span class="fileName"> Back </span></div>'
+    }
+    
+    if (fileNode instanceof Directory){
+        let childrenNodes = fileNode.getChildrenByDate();
+        for(let i= 0; i < childrenNodes.length; i++){
+            if (childrenNodes[i] instanceof Directory){
+                resultingFiles += '<div id="' + childrenNodes[i].getFileName() + 'Folder" class="file fadeInEffect hoverOutline" onclick="changeFolder(\'' + childrenNodes[i].getFileName() + '\', \'1\')"><i class="bi bi-folder fileIcon"></i><br><br><span class="fileName">' + childrenNodes[i].getFileName() +'</span></div>'
+            }
+            else if(childrenNodes[i] instanceof RegFile){
+                resultingFiles += '<div id="' + childrenNodes[i].getFileName() + 'File" class="file fadeInEffect hoverOutline" onclick="changeFolder(\'' + childrenNodes[i].getFileName() + '\', \'1\')"><i class="bi bi-files fileIcon"></i><br><br><span class="fileName">' + childrenNodes[i].getFileName() +'</span></div>'
+            }
+        }
+        if (execTerm === "1"){
+            term.exec("cd \"" + fileName + "\"");
+        }
+        $('#folderExplorer').html(resultingFiles);
+    }
+    else{
+        if (execTerm === "1"){
+            term.exec("stat \"" + fileName + "\"");
+        }
+    }
+}
+
 // Retrieves the whole absolute path of the given node
 // @param currFileNode : the curr file node to expand the full path to
 // @return               the absolute path of the FileNode
@@ -149,6 +226,10 @@ function checkFileAt(changeDir, currFileNode, isTildaBegin, fullDir, dirCheck, t
             if(!dirCheck || (dirCheck && (child instanceof Directory))){
                 return ["", child, false, false];
             }
+            else{
+                terminal.echo("<span style='color:red'>" + errorPath + " appears to be a file and not a directory. Try 'stat' instead?" + "</span>", echoDiv);
+                return [changeDir, currFileNode, false, true];
+            }
         }
 
         // falls through if there's an error with child
@@ -164,7 +245,7 @@ function checkFileAt(changeDir, currFileNode, isTildaBegin, fullDir, dirCheck, t
     }
 }
 
-// On success, the node path to the inputted directory will be received
+// On success, the node path to the inputted directory will be receive
 // On fail, either directory did not exist or more than one arg given
 // @param directory     : the provided directory argument to parse through
 // @param dirCheck      : boolean value to check if changeDir refers to a directory or not
@@ -301,7 +382,7 @@ function doubleTabCompletion(completions, terminal){
     }
 }
 
-$('.terminalSection').terminal({
+var term = $('.terminalSection').terminal({
     // Used for testing purposes
     // test: function(){
     //     // this.set_prompt("hello"); set_prompt is how you denote the terminal's current path
@@ -338,7 +419,7 @@ $('.terminalSection').terminal({
             }
         }
 
-        let changeNodeTo = parseFile(directory, true, 1, this, dateFlag = dateFlag);
+        let changeNodeTo = parseFile(directory, true, 1, this);
         if(changeNodeTo == null){
             return;
         }
@@ -360,17 +441,33 @@ $('.terminalSection').terminal({
             }
         }
     },
-    // Change the terminal path to the newly cd-ed path
+    // Change the terminal path to the newly cd-ed path, & change file explorer UI as well
     // @param <directory> : optional argument to check one specific directory path
     cd: function(...directory) {
+        // may want this in the future
+        // let affectFileExplorerFlag = true;
+        // if(directory.length != 0){
+        //     if(directory[0] === "-n"){
+        //         affectFileExplorerFlag = false;
+        //         directory.shift();
+        //     }
+        //     else if(directory[0][0] === "-"){
+        //         this.echo('<span style="color:red">Unrecognized flag ' + directory[0] + '.</span>', echoDiv);
+        //         return;
+        //     }
+        // }
+
         let changeNodeTo = parseFile(directory, true, 1, this);
         if(changeNodeTo == null){
             return;
         }
-
+        // if(affectFileExplorerFlag){
+        changeFolder(changeNodeTo.getFileName(), "0");
+        // }
         currNode = changeNodeTo;
         let currPath = absolutePath(changeNodeTo);
         this.set_prompt('$' + '[[;green;]' + currPath + ']' + '> ');
+        changeHTMLBioContent(currNode.getFileName().replace(" ", ""));
     },
     // Print the content of a directory/file
     // @param <directory> : optional argument to check one specific directory path
@@ -381,6 +478,8 @@ $('.terminalSection').terminal({
         }
         // console.log("The node is " + changeNodeTo.getFileName());
         this.echo(changeNodeTo.getData(), echoDiv);
+        console.log(changeNodeTo.getFileName().replace(" ", ""))
+        changeHTMLBioContent(changeNodeTo.getFileName().replace(" ", ""));
     },
     // Print current working directory
     // @param <directory> : this is not allowed. this will be error checked.
@@ -395,7 +494,12 @@ $('.terminalSection').terminal({
     }
 }, {
     checkArity: false,
-    greetings: 'Welcome to my terminal. Type "help" to see all commands available with this terminal currently.',
+    greetings: false,
+    // This onInit utilizes the custom echoDiv to ensure word-wrapping in the terminal
+    onInit: function(term){
+        term.echo('Welcome to my terminal. Type "help" to see all commands available with this terminal currently.', echoDiv);
+    },
+    // TODO: find out how to prevent text from initially overflowing outside the terminal div box
     prompt: '$' + '[[;green;]' + currPath + '/' + ']' + '> ',
     // completion will call on parseCommands to appropriately find
     // options that user can autocomplete to
@@ -408,5 +512,56 @@ $('.terminalSection').terminal({
     // more info from api doc: https://terminal.jcubic.pl/api_reference.php#terminal
     doubleTab: function(string, completions, echo){
         doubleTabCompletion(completions, this);
-    }
+    },
+    wrap:true
 });
+
+// // Changes the file/folder explorer UI (the bottom right box section on website) based on
+// // if user cd's to a diff directory from terminal or clicks on the folders or files.
+// // Clicking on a folder or file will also change content displayed on the .bioWrapper class div
+// // from index.html.
+// // @param fileName : the File Node to search for with a specific name
+// // @param execTerm : whether to make terminal exec a command or not (yes if coming from file explorer clicks, no if from terminal side)
+// function changeFolder(fileName, execTerm){
+//     console.log(execTerm);
+//     console.log(fileName);
+//     let fileNode;
+//     // if(fileName === ".."){
+
+//     // }
+//     if (fileName === "..") {
+//         fileNode = currNode.getParent();
+//     }
+//     else if(currNode.getParent() != null && fileName === currNode.getParent().getFileName()){
+//         fileNode = currNode.getParent();
+//     }
+//     else {
+//         fileNode = currNode.findChildByName(fileName);
+//     }
+//     let resultingFiles = ""
+
+//     if(fileNode != rootFileNode){
+//         resultingFiles += '<div id="back'  + 'File" class="file fadeInEffect hoverOutline" onclick="changeFolder(\'..\', \'1\')"><i class="bi bi-arrow-return-left backIcon"></i><br><br><span class="fileName"> Back </span></div>'
+//     }
+    
+//     if (fileNode instanceof Directory){
+//         let childrenNodes = fileNode.getChildrenByDate();
+//         for(let i= 0; i < childrenNodes.length; i++){
+//             if (childrenNodes[i] instanceof Directory){
+//                 resultingFiles += '<div id="' + childrenNodes[i].getFileName() + 'Folder" class="file fadeInEffect hoverOutline" onclick="changeFolder(\'' + childrenNodes[i].getFileName() + '\', \'1\')"><i class="bi bi-folder fileIcon"></i><br><br><span class="fileName">' + childrenNodes[i].getFileName() +'</span></div>'
+//             }
+//             else if(childrenNodes[i] instanceof RegFile){
+//                 resultingFiles += '<div id="' + childrenNodes[i].getFileName() + 'File" class="file fadeInEffect hoverOutline" onclick="changeFolder(\'' + childrenNodes[i].getFileName() + '\', \'1\')"><i class="bi bi-files fileIcon"></i><br><br><span class="fileName">' + childrenNodes[i].getFileName() +'</span></div>'
+//             }
+//         }
+//         if (execTerm === "1"){
+//             term.exec("cd \"" + fileName + "\"");
+//         }
+//         $('#folderExplorer').html(resultingFiles);
+//     }
+//     else{
+//         if (execTerm === "1"){
+//             term.exec("stat \"" + fileName + "\"");
+//         }
+//     }
+// }
