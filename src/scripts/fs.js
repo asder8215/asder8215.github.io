@@ -349,12 +349,14 @@ class Directory extends FileNode {
     // @param fileName : the File Node to search for with a specific name
     // @return           the File Node child with the file name on success or null on failure
     findChildByNameBFS(fileName){
-        let fileNodeList = this.getChildren();
-        while(fileNodeList.length() !== 0){
+        // make a shallow copy of original array, so that the node
+        // does not get modified via pushing and shifting nodes to it.
+        let fileNodeList = this.getChildren().slice(); 
+        while(fileNodeList.length !== 0){
             if(fileNodeList[0].getFileName() === fileName){
                 return fileNodeList[0];
             }
-            let childrenList = fileNodeList[0].getChildren();
+            let childrenList = fileNodeList[0] instanceof Directory ? fileNodeList[0].getChildren() : [];
             for(let i = 0; i < childrenList.length; i++){
                 fileNodeList.push(childrenList[i]);
             }

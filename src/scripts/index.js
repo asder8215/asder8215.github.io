@@ -132,11 +132,12 @@ function changeHTMLBioContent(id){
 // @param fileName : the File Node to search for with a specific name
 // @param execTerm : whether to make terminal exec a command or not (yes if coming from file explorer clicks, no if from terminal side)
 function changeFolder(fileName, execTerm){
-    console.log(execTerm);
-    console.log(fileName);
+    // console.log(execTerm);
+    // console.log(fileName);
     let fileNode;
     // if(fileName === ".."){
-
+    fileName = fileName.split('/');
+    fileName = fileName[fileName.length - 1];
     // }
     if (fileName === "..") {
         fileNode = currNode.getParent();
@@ -145,7 +146,7 @@ function changeFolder(fileName, execTerm){
         fileNode = currNode.getParent();
     }
     else {
-        fileNode = currNode.findChildByName(fileName);
+        fileNode = currNode.findChildByNameBFS(fileName);
     }
     let resultingFiles = ""
 
@@ -462,8 +463,8 @@ var term = $('.terminalSection').terminal({
             return;
         }
         // if(affectFileExplorerFlag){
-        changeFolder(changeNodeTo.getFileName(), "0");
         // }
+        changeFolder(changeNodeTo.getFileName(), "0");
         currNode = changeNodeTo;
         let currPath = absolutePath(changeNodeTo);
         this.set_prompt('$' + '[[;green;]' + currPath + ']' + '> ');
