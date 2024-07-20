@@ -133,6 +133,11 @@ function changeHTMLBioContent(id){
 // @param execTerm : whether to make terminal exec a command or not (yes if coming from file explorer clicks, no if from terminal side)
 function changeFolder(fileName, execTerm){
     let fileNode = currNode;
+
+    let infoFileName = fileName;
+
+    // fileName = fileName.replace(" ", "");
+    // console.log("name of file " + fileName);
     fileName = fileName.split('/');
 
     for (let i = 0; i < fileName.length; i++){
@@ -160,20 +165,20 @@ function changeFolder(fileName, execTerm){
         let childrenNodes = fileNode.getChildrenByDate();
         for(let i= 0; i < childrenNodes.length; i++){
             if (childrenNodes[i] instanceof Directory){
-                resultingFiles += '<div id="' + childrenNodes[i].getFileName() + 'Folder" class="file fadeInEffect hoverOutline" onclick="changeFolder(\'' + childrenNodes[i].getFileName() + '\', \'1\')"><i class="bi bi-folder fileIcon"></i><br><br><span class="fileName">' + childrenNodes[i].getFileName() +'</span></div>'
+                resultingFiles += '<div id="' + childrenNodes[i].getFileName().replaceAll(" ", "") + 'Folder" class="file fadeInEffect hoverOutline" onclick="changeFolder(\'' + childrenNodes[i].getFileName() + '\', \'1\')"><i class="bi bi-folder fileIcon"></i><br><br><span class="fileName">' + childrenNodes[i].getFileName() +'</span></div>'
             }
             else if(childrenNodes[i] instanceof RegFile){
-                resultingFiles += '<div id="' + childrenNodes[i].getFileName() + 'File" class="file fadeInEffect hoverOutline" onclick="changeFolder(\'' + childrenNodes[i].getFileName() + '\', \'1\')"><i class="bi bi-files fileIcon"></i><br><br><span class="fileName">' + childrenNodes[i].getFileName() +'</span></div>'
+                resultingFiles += '<div id="' + childrenNodes[i].getFileName().replaceAll(" ", "") + 'File" class="file fadeInEffect hoverOutline" onclick="changeFolder(\'' + childrenNodes[i].getFileName() + '\', \'1\')"><i class="bi bi-files fileIcon"></i><br><br><span class="fileName">' + childrenNodes[i].getFileName() +'</span></div>'
             }
         }
         if (execTerm === "1"){
-            term.exec("cd \"" + fileName + "\"");
+            term.exec("cd \"" + infoFileName + "\"");
         }
         $('#folderExplorer').html(resultingFiles);
     }
     else{
         if (execTerm === "1"){
-            term.exec("stat \"" + fileName + "\"");
+            term.exec("stat \"" + infoFileName + "\"");
         }
     }
 }
@@ -467,7 +472,7 @@ var term = $('.terminalSection').terminal({
         currNode = changeNodeTo;
         let currPath = absolutePath(changeNodeTo);
         this.set_prompt('$' + '[[;green;]' + currPath + ']' + '> ');
-        changeHTMLBioContent(currNode.getFileName().replace(" ", ""));
+        changeHTMLBioContent(currNode.getFileName().replaceAll(" ", ""));
     },
     // Print the content of a directory/file
     // @param <directory> : optional argument to check one specific directory path
@@ -479,7 +484,7 @@ var term = $('.terminalSection').terminal({
         // console.log("The node is " + changeNodeTo.getFileName());
         this.echo(changeNodeTo.getData(), echoDiv);
         console.log(changeNodeTo.getFileName().replace(" ", ""))
-        changeHTMLBioContent(changeNodeTo.getFileName().replace(" ", ""));
+        changeHTMLBioContent(changeNodeTo.getFileName().replaceAll(" ", ""));
     },
     // Print current working directory
     // @param <directory> : this is not allowed. this will be error checked.
