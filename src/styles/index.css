@@ -212,7 +212,7 @@ a, .links {
     100% {opacity: 1;}
 }
 
-.headshotImg, .schoolImg{
+.headshotImg, .textFileImg{
     border-radius: 1em;
     display:block;
     margin-left: auto;
