@@ -181,13 +181,13 @@ a, .links {
 
 @media screen and (min-width: 1200px) {
     :root {
-        --size:2;
+        --size:1.8;
     }
 }
 
 @media screen and (max-width: 1200px) {
     :root {
-        --size:1.5;
+        --size:1.3;
     }
 }
 
