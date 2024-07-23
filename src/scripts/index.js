@@ -483,7 +483,7 @@ var term = $('.terminalSection').terminal({
         }
         // console.log("The node is " + changeNodeTo.getFileName());
         this.echo(changeNodeTo.getData(), echoDiv);
-        console.log(changeNodeTo.getFileName().replace(" ", ""))
+        // console.log(changeNodeTo.getFileName().replace(" ", ""))
         changeHTMLBioContent(changeNodeTo.getFileName().replaceAll(" ", ""));
     },
     // Print current working directory

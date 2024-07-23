@@ -252,8 +252,7 @@ class Directory extends FileNode {
         
         childrenListByDate.sort(function(a, b){
             if (a.getDate() !== null && b.getDate() !== null){
-                console.log("Sorting by date");
-
+                // console.log("Sorting by date");
                 return new Date(Date.parse(b.getDate()) - Date.parse(a.getDate()));
             }
             return 0;
