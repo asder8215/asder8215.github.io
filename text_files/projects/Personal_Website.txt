@@ -1,5 +1,6 @@
 <a href="https://github.com/asder8215/asder8215.github.io" target="_blank"><b>Personal Website</b></a>
 <em>June 2024 - Present</em>
-&bull; Utilized jQuery Terminal package to build a terminal-based personal website that contains information about my education, experience, projects, and any other miscellaneous topics
-&bull; Commands are built from scratch and so far this terminal allows user to navigate through cd, list files and directories in the terminal through ls, display information within each file & directory through stat, and a few other commands have been implemented
-&bull; Google Fonts and a bit of Bootstrap were used for icons and styling text
+&bull; Personal website emulating a terminal with files on my experience, projects, education, etc.
+&bull; Implemented file system in an object-oriented fashion, which supports Regular Files and Directory structures
+&bull; Created a file explorer structure for the website for smooth and easy navigation
+&bull; Commands for the terminal (cd, ls, pwd, etc.) were created by scratch functioning similarly to the commands on a Linux terminal

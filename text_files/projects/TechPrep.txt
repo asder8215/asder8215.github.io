@@ -1,7 +1,4 @@
 <a href="https://github.com/asder8215/TechPrep" target="_blank"><b>TechPrep</b></a>
 <em>November 2022</em>
 &bull; Mobile application that prepares users for technical interviews with multiple choice style programming questions
-&bull; Utilized Android Studio, Kotlin, and QuizAPI for design, functionality, and creating question bank for the app
-&bull; Implemented Topics page of the app using Fragments, Adapter, and Recyclerview objects displaying different
-question categories (e,g, Linux, DevOps, Docker, etc.) and fetched and parsed JSON response from QuizAPI into
-a database to persist and pass onto following screens via Intents
+&bull; Implemented Topics page of the app using Fragments, Adapter, and Recyclerview objects displaying different question categories (e,g, Linux, DevOps, Docker, etc.) and fetched and parsed JSON response from QuizAPI into a database to persist and pass onto following screens via Intents

@@ -1,5 +1,6 @@
 <b>Education Fellow @ Emerging Leaders in Technology and Engineering (ELiTE)</b>
 <em>October 2021 - June 2024 </em>
-&bull; Assisted the lead instructor in teaching introductory Python and complementary topics such as hardware (MicroBit) and game development (Pygame) to high school students, primarily from underrepresented communities
-&bull; Conducted weekly office hours to support students and provided feedback on their projects
-&bull; Played a key role in fostering an inclusive learning environment and promoting STEM education among diverse student groups
+&bull; Lead a class of 20+ students each year in engaging discussions, teaching fundamentals of Python and complementing it with
+different topics like hardware with the MicroBit and game development in Pygame
+&bull; Ensured that students are completing the projects assigned and clarified material through office hours
+&bull; Communicated with teachers and other fellows on the progress of the class after each lesson

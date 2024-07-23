@@ -1,7 +1,6 @@
 <a href="https://github.com/asder8215/Arduino-Fortune-Wheel-Game" target="_blank"><b>Name the Game, Spin the Wheel</b></a>
 <em>February 2022 - May 2022</em>
-&bull; Group project featuring an user-centric game allowing the players to imagine a game (e.g. 21, HighLow, etc.) to
-play on a spinning wheel numbered 1-8
-&bull; Utilized Arduino UNO, arcade buttons, stepper motor, wood for the wheel and box casing, portable battery,
-speaker, and microSD card reader
-&bull; Circuited the buttons to the Arduino and programmed button presses to initiate and stop the motor
+&bull; Group project featuring an user-centric game allowing players to imagine a game (e.g. 21, HighLow, etc.) to play on a
+spinning wheel numbered 1-8 and press on arcade buttons to start or halt the wheel
+&bull; Designed and implemented the circuitry for the arcade buttons to the Arduino board and programmed button presses to
+initiate and stop the motor
