@@ -113,12 +113,14 @@ function changeHTMLBioContent(id){
         // Parse the text
         var doc = parser.parseFromString(html, "text/html");
 
-        // You can now even select part of that html as you would in the regular DOM 
-        // Example:
-        // var docArticle = doc.querySelector('article').innerHTML;
-        var htmlFadeInEffect = '<div class="fadeInEffect">' + doc.getElementById(id).innerHTML + '</div>'
-        // $('.bioWrapper').html(doc.getElementById(id).innerHTML);
-        $('.bioWrapper').html(htmlFadeInEffect);
+        // slight exit effect alongside fade in effect for the text on the left
+        $('.bioWrapper').animate({opacity: 0}, 500);
+        var htmlFadeInEffect = '<div>' + doc.getElementById(id).innerHTML + '</div>'
+        setTimeout(function(){
+            $('.bioWrapper').html(htmlFadeInEffect);
+            $('.bioWrapper').animate({opacity: 1}, 250);
+        }, 500)
+        
     })
     .catch(function(err) {  
         console.log('Failed to fetch page: ', err);  
@@ -158,23 +160,29 @@ function changeFolder(fileName, execTerm){
     let resultingFiles = ""
 
     if(fileNode != rootFileNode){
-        resultingFiles += '<div id="back'  + 'File" class="file fadeInEffect hoverOutline" onclick="changeFolder(\'..\', \'1\')"><i class="bi bi-arrow-return-left backIcon"></i><br><br><span class="fileName"> Back </span></div>'
+        resultingFiles += '<div id="back'  + 'File" class="file hoverOutline" onclick="changeFolder(\'..\', \'1\')"><i class="bi bi-arrow-return-left backIcon"></i><br><br><span class="fileName"> Back </span></div>'
     }
     
     if (fileNode instanceof Directory){
         let childrenNodes = fileNode.getChildrenByDate();
         for(let i= 0; i < childrenNodes.length; i++){
             if (childrenNodes[i] instanceof Directory){
-                resultingFiles += '<div id="' + childrenNodes[i].getFileName().replaceAll(" ", "") + 'Folder" class="file fadeInEffect hoverOutline" onclick="changeFolder(\'' + childrenNodes[i].getFileName() + '\', \'1\')"><i class="bi bi-folder fileIcon"></i><br><br><span class="fileName">' + childrenNodes[i].getFileName() +'</span></div>'
+                resultingFiles += '<div id="' + childrenNodes[i].getFileName().replaceAll(" ", "") + 'Folder" class="file hoverOutline" onclick="changeFolder(\'' + childrenNodes[i].getFileName() + '\', \'1\')"><i class="bi bi-folder fileIcon"></i><br><br><span class="fileName">' + childrenNodes[i].getFileName() +'</span></div>'
             }
             else if(childrenNodes[i] instanceof RegFile){
-                resultingFiles += '<div id="' + childrenNodes[i].getFileName().replaceAll(" ", "") + 'File" class="file fadeInEffect hoverOutline" onclick="changeFolder(\'' + childrenNodes[i].getFileName() + '\', \'1\')"><i class="bi bi-files fileIcon"></i><br><br><span class="fileName">' + childrenNodes[i].getFileName() +'</span></div>'
+                resultingFiles += '<div id="' + childrenNodes[i].getFileName().replaceAll(" ", "") + 'File" class="file hoverOutline" onclick="changeFolder(\'' + childrenNodes[i].getFileName() + '\', \'1\')"><i class="bi bi-files fileIcon"></i><br><br><span class="fileName">' + childrenNodes[i].getFileName() +'</span></div>'
             }
         }
         if (execTerm === "1"){
             term.exec("cd \"" + infoFileName + "\"");
         }
-        $('#folderExplorer').html(resultingFiles);
+
+        // slight exit effect alongside fade in effect for the text on the left
+        $('#folderExplorer').animate({opacity: 0}, 400);
+        setTimeout(function(){
+            $('#folderExplorer').html(resultingFiles);
+            $('#folderExplorer').animate({opacity: 1}, 250);
+        }, 400)
     }
     else{
         if (execTerm === "1"){

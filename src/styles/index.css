@@ -204,13 +204,17 @@ a, .links {
 
 /* Fade in animation effect */
 .fadeInEffect {
-    animation: fadeIn 3s; /* src: https://blog.hubspot.com/website/css-fade-in*/
+    /* transition: 0 3s; */
+    animation: fadeIn 1s; /* src: https://blog.hubspot.com/website/css-fade-in
+    /* animation: fadeIn 3s ease-out; src: https://blog.hubspot.com/website/css-fade-in */
 }
 
 @keyframes fadeIn {
     0% {opacity: 0;}
     100% {opacity: 1;}
 }
+
+
 
 .headshotImg, .textFileImg{
     border-radius: 1em;
