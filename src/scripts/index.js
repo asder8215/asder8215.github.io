@@ -119,7 +119,7 @@ function changeHTMLBioContent(id){
         setTimeout(function(){
             $('.bioWrapper').html(htmlFadeInEffect);
             $('.bioWrapper').animate({opacity: 1}, 250);
-        }, 500)
+        }, 500);
         
     })
     .catch(function(err) {  
@@ -182,7 +182,7 @@ function changeFolder(fileName, execTerm){
         setTimeout(function(){
             $('#folderExplorer').html(resultingFiles);
             $('#folderExplorer').animate({opacity: 1}, 250);
-        }, 400)
+        }, 400);
     }
     else{
         if (execTerm === "1"){

@@ -178,7 +178,6 @@ a, .links {
      overflow-y:auto;
 } */
 
-
 @media screen and (min-width: 1200px) {
     :root {
         --size:1.8;
@@ -213,7 +212,6 @@ a, .links {
     0% {opacity: 0;}
     100% {opacity: 1;}
 }
-
 
 
 .headshotImg, .textFileImg{
