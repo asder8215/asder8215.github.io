@@ -54,7 +54,7 @@ a, .links {
     justify-content: space-between;
     gap: calc(0.96vh + 0.96vw);
     align-items: center;
-    height: calc(26.2vh + 26.2vw);
+    height: calc(25.2vh + 25.2vw);
     padding-left: calc(0.32vh + 0.32vw);
 }
 
@@ -69,7 +69,7 @@ a, .links {
 }
   
 .col {
-    height: calc(25.5vh + 25.5vw);
+    height: calc(24.8vh + 24.8vw);
 }
 
 .col, .centerHeader, .navigationRow {
@@ -180,7 +180,7 @@ a, .links {
 
 @media screen and (min-width: 1200px) {
     :root {
-        --size:1.8;
+        --size:1.6;
     }
 }
 

@@ -1,0 +1,3 @@
+# Get rid of the DS Stores from being added
+*/.DS_Store
+.DS_Store
